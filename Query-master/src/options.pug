@@ -1,0 +1,69 @@
+doctype html
+html(lang='en')
+
+    head
+        title Options
+        meta(charset='utf-8')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+        link(rel='stylesheet', href='styles/lib/jquery-ui.min.css.min.css')
+        link(rel='stylesheet', href='styles/options.min.css')
+        link(rel='shortcut icon', href='images/favicon.ico')
+        script(src='scripts/analytics.min.js')
+
+    body
+
+        header
+            h1 Query
+            nav: ul
+                li: a(href='#options') options
+                li: a(href='#about') about query
+                li: a(href='#donation') donation
+
+        .content#options
+            h3 User Query
+            ul#userQuerys
+                li
+                    i.sort.material-icons sort
+                    input(name='queryName',type='text',placeholder='e.g.) serch in google')
+                    input(name='queryUrl',type='text',placeholder='e.g.) https://www.google.com/search?q=%s')
+                    button.del(title='delete'): i.material-icons delete
+                li
+                    i.sort.material-icons sort
+                    input(name='queryName',type='text',placeholder='e.g.) serch in google')
+                    input(name='queryUrl',type='text',placeholder='e.g.) https://www.google.com/search?q=%s')
+                    button.del(title='delete'): i.material-icons delete
+                li
+                    i.sort.material-icons sort
+                    input(name='queryName',type='text',placeholder='e.g.) serch in google')
+                    input(name='queryUrl',type='text',placeholder='e.g.) https://www.google.com/search?q=%s')
+                    button.del(title='delete'): i.material-icons delete
+
+            h3 Default Query
+            ul#defaultQuerys
+                li
+                    i.sort.material-icons sort
+                    input(name='queryName',type='text',placeholder='e.g.) serch in google')
+                    input(name='queryUrl',type='text',placeholder='e.g.) https://www.google.com/search?q=%s')
+                    button.del(title='delete'): i.material-icons delete
+
+        .content#about
+            h3 about
+            h3 links
+            h3 ReleaseNote
+
+        .content#donation
+            h3 rate Query
+
+        ul.menu
+            li.close: a(title='close', href='main.html')
+                i.material-icons close
+
+        footer
+            a.github(href='https://github.com/psephopaiktes/Query',title='View on GitHub',target='brank_')
+                img(src='images/github.svg')
+            p: small © Akira HIRATA 2017
+
+
+        script(src='scripts/lib/jquery-3.1.1.slim.min.js')
+        script(src='scripts/lib/jquery-ui.min.js')
+        script(src='scripts/options.min.js')

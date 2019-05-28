@@ -1,0 +1,14 @@
+{
+  "name": "tabulasa",
+  "author": "Akira HIRATA",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "permissions": [
+    "storage"
+  ],
+  "chrome_url_overrides": {
+    "newtab": "dist/index.html"
+  },
+  "minimum_chrome_version": "22",
+  "homepage_url": "https://psephopaiktes.github.io/tabulasa/"
+}
