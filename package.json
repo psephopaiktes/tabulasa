@@ -1,8 +1,12 @@
 {
-  "name": "chrome-stylize",
+  "name": "tabulasa",
   "version": "1.0.0",
   "private": true,
-  "description": "chrome extension for customize CSS and JS.",
+  "description": "chrome extension for new tab",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psephopaiktes/tabulasa"
+  },
   "scripts": {
     "start": "npm run html -- -w & npm run css -- -w & npm run js -- -w",
     "build": "rm -rf docs && npm run html && npm run css && npm run js",
