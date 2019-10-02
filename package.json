@@ -1,23 +1,63 @@
 {
   "name": "tabulasa",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
-  "description": "chrome extension for new tab",
   "repository": {
     "type": "git",
     "url": "https://github.com/psephopaiktes/tabulasa"
   },
   "scripts": {
-    "start": "npm run html -- -w & npm run css -- -w & npm run js -- -w",
-    "build": "rm -rf docs && npm run html && npm run css && npm run js",
-    "html": "cpx 'src/*.html' docs",
-    "css": "node-sass src -o docs --output-style compressed",
-    "js": "babel src -d docs --compact=true --presets=env --no-comments"
+    "start": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "codemirror": "^5.49.0",
+    "vue": "^2.6.10",
+    "vue-class-component": "^7.0.2",
+    "vue-property-decorator": "^8.1.0",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "cpx": "^1.5.0",
-    "node-sass": "^4.9.2"
-  }
+    "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-plugin-typescript": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
+    "@vue/eslint-config-prettier": "^5.0.0",
+    "@vue/eslint-config-typescript": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "prettier": "^1.18.2",
+    "sass": "^1.18.0",
+    "sass-loader": "^7.1.0",
+    "typescript": "^3.4.3",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/prettier",
+      "@vue/typescript"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }

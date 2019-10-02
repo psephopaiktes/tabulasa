@@ -1,0 +1,44 @@
+@charset "urf-8";
+
+html {
+  background-color: $COLOR_BASE;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background-color: $COLOR_BASE;
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: $COLOR_MAIN;
+  line-height: 1.6;
+  font-weight: 500;
+  font-family:  -apple-system, BlinkMacSystemFont, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN", "游ゴシック", "Yu Gothic", YuGothic, Meiryo, "メイリオ", "Segoe UI", Roboto, "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", Arial, sans-serif;
+  font-smoothing: antialiased;
+  font-feature-settings : "pkna";
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+}
+img {
+  border: none;
+  vertical-align: top;
+  max-width: 100%;
+}
+b,strong {
+  font-weight: bolder;
+}
+a{
+  color: $COLOR_THEME;
+}
+button{
+  cursor: pointer;
+}
