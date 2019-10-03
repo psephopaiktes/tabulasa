@@ -1,6 +1,64 @@
 @charset "urf-8";
 
-html {
+@font-face {
+  font-family:'RictyDiminishedDiscord';
+  font-weight: normal; font-style: normal;
+  src: url('/font/RictyDiminishedDiscord-Regular.woff2') format('woff2');
+  font-display: fallback;
+}
+@font-face {
+  font-family:'RictyDiminishedDiscord';
+  font-weight: normal; font-style: oblique;
+  src: url('/font/RictyDiminishedDiscord-Oblique.woff2') format('woff2');
+  font-display: fallback;
+}
+@font-face {
+  font-family:'RictyDiminishedDiscord';
+  font-weight: bold; font-style: normal;
+  src: url('/font/RictyDiminishedDiscord-Bold.woff2') format('woff2');
+  font-display: fallback;
+}
+@font-face {
+  font-family:'RictyDiminishedDiscord';
+  font-weight: bold; font-style: oblique;
+  src: url('/font/RictyDiminishedDiscord-BoldOblique.woff2') format('woff2');
+  font-display: fallback;
+}
+
+:root{
+  @media (prefers-color-scheme: light) {
+    --color-theme: #3367d6;
+    --color-theme-r: 51;
+    --color-theme-g: 103;
+    --color-theme-b: 214;
+
+    --color-base: #fcfcfc;
+    --color-base-r: 252;
+    --color-base-g: 252;
+    --color-base-b: 252;
+
+    --color-main: #202124;
+    --color-main-r: 32;
+    --color-main-g: 33;
+    --color-main-b: 36;
+
+  }
+  @media (prefers-color-scheme: dark) {
+    --color-theme: #8ab4f8;
+    --color-theme-r: 138;
+    --color-theme-g: 180;
+    --color-theme-b: 248;
+
+    --color-base: #323639;
+    --color-base-r: 50;
+    --color-base-g: 54;
+    --color-base-b: 57;
+
+    --color-main: #f8f9fa;
+    --color-main-r: 248;
+    --color-main-g: 249;
+    --color-main-b: 250;
+  }
   background-color: $COLOR_BASE;
   -webkit-text-size-adjust: 100%;
 }
@@ -9,13 +67,13 @@ body {
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
-  font-size: 16px;
-  color: $COLOR_MAIN;
+  font-size: 18px;
+  color: rgba($COLOR_MAIN,.8);
   line-height: 1.6;
-  font-weight: 500;
-  font-family:  -apple-system, BlinkMacSystemFont, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN", "游ゴシック", "Yu Gothic", YuGothic, Meiryo, "メイリオ", "Segoe UI", Roboto, "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", Arial, sans-serif;
+  font-weight: normal;
+  font-family: RictyDiminishedDiscord, monospace;
   font-smoothing: antialiased;
-  font-feature-settings : "pkna";
+  overscroll-behavior: none;
 }
 
 *,

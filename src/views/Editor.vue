@@ -1,15 +1,39 @@
 <template>
   <main>
-    <h1>Editor</h1>
-    <textarea id="code"></textarea>
+    <textarea id="code">
+# Apple Inherit
+- aaa
+- aaa
+- aaaaaa
+
+あの**イーハトーヴォ**のすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる*草の波*。 またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう
+
+## aaa
+- aaaa
+- ああああ`あああ`あああ
+
+> あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。 またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう
+
+## ああああ
+```
+ああああ
+```
+- [ ] task1
+- [x] task2
+### あああ
+- [link](goole.com)
+- ![](aa.com)
+### あああ
+あああ~~aaa~~ああ</textarea
+    >
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 const CodeMirror = require("codemirror");
-require("codemirror/addon/mode/overlay.js");
-require("codemirror/mode/markdown/markdown.js");
+require("codemirror/addon/edit/continuelist.js");
+require("codemirror/addon/selection/active-line.js");
 require("codemirror/mode/gfm/gfm.js");
 
 @Component
@@ -20,14 +44,13 @@ export default class Editor extends Vue {
   }
   public mounted() {
     const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-      mode: {
-        name: "gfm",
-        tokenTypeOverrides: {
-          emoji: "emoji"
-        }
-      },
-      lineNumbers: true,
-      indentUnit: 4
+      mode: "gfm",
+      // indentUnit: 4,
+      lineWrapping: true,
+      // styleActiveLine: true,
+      cursorBlinkRate: 320,
+      cursorScrollMargin: 4,
+      extraKeys: { Enter: "newlineAndIndentContinueMarkdownList" }
     });
   }
 }
@@ -36,261 +59,99 @@ export default class Editor extends Vue {
 <style lang="scss">
 @import "@/scss/const.scss";
 
-/* BASICS */
-
+// BASICS
 .CodeMirror {
-  /* Set height, width, borders, and global font properties here */
-  font-family: monospace;
-  height: 300px;
-  color: black;
-  direction: ltr;
+  width: calc(100% - 96px);
+  max-width: 30em;
+  margin: 0 auto;
+  font-size: 20px;
+  color: rgba(#{$COLOR_RGB_MAIN}, 0.8);
+  line-height: 1.5;
+  text-decoration-skip-ink: none;
 }
-
-/* PADDING */
-
 .CodeMirror-lines {
-  padding: 4px 0; /* Vertical padding around content */
+  padding: 20vh 0;
 }
 .CodeMirror pre.CodeMirror-line,
 .CodeMirror pre.CodeMirror-line-like {
   padding: 0 4px; /* Horizontal padding of content */
 }
 
-.CodeMirror-scrollbar-filler,
-.CodeMirror-gutter-filler {
-  background-color: white; /* The little square between H and V scrollbars */
-}
-
-/* GUTTER */
-
-.CodeMirror-gutters {
-  border-right: 1px solid #ddd;
-  background-color: #f7f7f7;
-  white-space: nowrap;
-}
-.CodeMirror-linenumbers {
-}
-.CodeMirror-linenumber {
-  padding: 0 3px 0 5px;
-  min-width: 20px;
-  text-align: right;
-  color: #999;
-  white-space: nowrap;
-}
-
-.CodeMirror-guttermarker {
-  color: black;
-}
-.CodeMirror-guttermarker-subtle {
-  color: #999;
-}
-
-/* CURSOR */
-
+// CURSOR
 .CodeMirror-cursor {
-  border-left: 1px solid black;
+  border-left: 4px solid $COLOR_THEME;
   border-right: none;
   width: 0;
 }
-/* Shown when moving in bi-directional text */
-.CodeMirror div.CodeMirror-secondarycursor {
-  border-left: 1px solid silver;
-}
-.cm-fat-cursor .CodeMirror-cursor {
-  width: auto;
-  border: 0 !important;
-  background: #7e7;
-}
-.cm-fat-cursor div.CodeMirror-cursors {
-  z-index: 1;
-}
-.cm-fat-cursor-mark {
-  background-color: rgba(20, 255, 20, 0.5);
-  -webkit-animation: blink 1.06s steps(1) infinite;
-  -moz-animation: blink 1.06s steps(1) infinite;
-  animation: blink 1.06s steps(1) infinite;
-}
-.cm-animate-fat-cursor {
-  width: auto;
-  border: 0;
-  -webkit-animation: blink 1.06s steps(1) infinite;
-  -moz-animation: blink 1.06s steps(1) infinite;
-  animation: blink 1.06s steps(1) infinite;
-  background-color: #7e7;
-}
-@-moz-keyframes blink {
-  0% {
-  }
-  50% {
-    background-color: transparent;
-  }
-  100% {
-  }
-}
-@-webkit-keyframes blink {
-  0% {
-  }
-  50% {
-    background-color: transparent;
-  }
-  100% {
-  }
-}
-@keyframes blink {
-  0% {
-  }
-  50% {
-    background-color: transparent;
-  }
-  100% {
-  }
-}
 
-/* Can style cursor different in overwrite (non-insert) mode */
-.CodeMirror-overwrite .CodeMirror-cursor {
-}
+// THEME
 
-.cm-tab {
-  display: inline-block;
-  text-decoration: inherit;
+.cm-header {
+  font-weight: bold;
 }
-
-.CodeMirror-rulers {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -50px;
-  bottom: 0;
-  overflow: hidden;
+.cm-header-1 {
+  font-size: 3em;
+  color: $COLOR_MAIN;
 }
-.CodeMirror-ruler {
-  border-left: 1px solid #ccc;
-  top: 0;
-  bottom: 0;
-  position: absolute;
+.cm-header-2 {
+  font-size: 1.6em;
+  color: rgba(#{$COLOR_RGB_MAIN}, 0.9);
 }
-
-/* DEFAULT THEME */
-
-.cm-s-default .cm-header {
-  color: blue;
+.cm-header-3 {
+  font-size: 1.2em;
 }
-.cm-s-default .cm-quote {
-  color: #090;
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-size: 1em;
 }
-.cm-negative {
-  color: #d44;
+.cm-quote {
+  color: rgba(#{$COLOR_RGB_MAIN}, 0.5);
+  font-style: italic;
 }
-.cm-positive {
-  color: #292;
-}
-.cm-header,
 .cm-strong {
   font-weight: bold;
 }
 .cm-em {
   font-style: italic;
 }
-.cm-link {
-  text-decoration: underline;
-}
 .cm-strikethrough {
   text-decoration: line-through;
+  opacity: 0.5;
+}
+.cm-comment {
+  color: rgba(#{$COLOR_RGB_MAIN}, 0.5);
+  margin: 0 0.2em;
+}
+.cm-meta,
+.cm-property {
+  color: rgba(#{$COLOR_RGB_MAIN}, 0.5);
+}
+.cm-link {
+  text-decoration: underline;
+  color: rgba(#{$COLOR_RGB_THEME}, 1);
+}
+.cm-url {
+  text-decoration: underline;
+  color: rgba(#{$COLOR_RGB_THEME}, 0.5);
+}
+.cm-image {
+  text-decoration: none;
+  color: rgba(#{$COLOR_RGB_THEME}, 1);
 }
 
-.cm-s-default .cm-keyword {
-  color: #708;
-}
-.cm-s-default .cm-atom {
-  color: #219;
-}
-.cm-s-default .cm-number {
-  color: #164;
-}
-.cm-s-default .cm-def {
-  color: #00f;
-}
-.cm-s-default .cm-variable,
-.cm-s-default .cm-punctuation,
-.cm-s-default .cm-property,
-.cm-s-default .cm-operator {
-}
-.cm-s-default .cm-variable-2 {
-  color: #05a;
-}
-.cm-s-default .cm-variable-3,
-.cm-s-default .cm-type {
-  color: #085;
-}
-.cm-s-default .cm-comment {
-  color: #a50;
-}
-.cm-s-default .cm-string {
-  color: #a11;
-}
-.cm-s-default .cm-string-2 {
-  color: #f50;
-}
-.cm-s-default .cm-meta {
-  color: #555;
-}
-.cm-s-default .cm-qualifier {
-  color: #555;
-}
-.cm-s-default .cm-builtin {
-  color: #30a;
-}
-.cm-s-default .cm-bracket {
-  color: #997;
-}
-.cm-s-default .cm-tag {
-  color: #170;
-}
-.cm-s-default .cm-attribute {
-  color: #00c;
-}
-.cm-s-default .cm-hr {
-  color: #999;
-}
-.cm-s-default .cm-link {
-  color: #00c;
-}
-
-.cm-s-default .cm-error {
-  color: #f00;
-}
-.cm-invalidchar {
-  color: #f00;
-}
-
-.CodeMirror-composing {
-  border-bottom: 2px solid;
-}
-
-/* Default styles for common addons */
-
-div.CodeMirror span.CodeMirror-matchingbracket {
-  color: #0b0;
-}
-div.CodeMirror span.CodeMirror-nonmatchingbracket {
-  color: #a22;
-}
-.CodeMirror-matchingtag {
-  background: rgba(255, 150, 0, 0.3);
-}
+// ADDON
 .CodeMirror-activeline-background {
-  background: #e8f2ff;
+  background: rgba(#{$COLOR_RGB_MAIN}, 0.05);
 }
 
 /* STOP */
-
 /* The rest of this file contains styles related to the mechanics of
    the editor. You probably shouldn't touch them. */
 
 .CodeMirror {
   position: relative;
   overflow: hidden;
-  background: white;
 }
 
 .CodeMirror-scroll {
@@ -373,9 +234,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   z-index: 4;
 }
 .CodeMirror-gutter-wrapper ::selection {
-  background-color: transparent;
-}
-.CodeMirror-gutter-wrapper ::-moz-selection {
   background-color: transparent;
 }
 
@@ -478,10 +336,10 @@ div.CodeMirror-dragcursors {
 }
 
 .CodeMirror-selected {
-  background: #d9d9d9;
+  background: rgba(#{$COLOR_RGB_THEME}, 0.4);
 }
 .CodeMirror-focused .CodeMirror-selected {
-  background: #d7d4f0;
+  background: rgba(#{$COLOR_RGB_THEME}, 0.6);
 }
 .CodeMirror-crosshair {
   cursor: crosshair;
@@ -489,12 +347,7 @@ div.CodeMirror-dragcursors {
 .CodeMirror-line::selection,
 .CodeMirror-line > span::selection,
 .CodeMirror-line > span > span::selection {
-  background: #d7d4f0;
-}
-.CodeMirror-line::-moz-selection,
-.CodeMirror-line > span::-moz-selection,
-.CodeMirror-line > span > span::-moz-selection {
-  background: #d7d4f0;
+  background: rgba(#{$COLOR_RGB_THEME}, 0.6);
 }
 
 .cm-searching {
