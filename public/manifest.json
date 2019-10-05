@@ -10,5 +10,6 @@
     "newtab": "index.html"
   },
   "minimum_chrome_version": "22",
-  "homepage_url": "https://psephopaiktes.github.io/tabulasa/"
+  "homepage_url": "https://psephopaiktes.github.io/tabulasa/",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'"
 }

@@ -14,18 +14,7 @@ import Nav from "@/components/Nav.vue";
     Nav
   }
 })
-export default class App extends Vue {
-  // lifecycle hook
-  public mounted() {
-    window.addEventListener("load", () => {
-      const elm = document!.getElementById("loading");
-      if (!elm) {
-        return;
-      }
-      elm.classList.add("hide");
-    });
-  }
-}
+export default class App extends Vue {}
 </script>
 
 <style lang="scss">

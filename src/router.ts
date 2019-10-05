@@ -8,12 +8,24 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: "/index.html",
+      component: () => import("./views/Editor.vue")
+    },
+    {
       path: "/",
       component: () => import("./views/Editor.vue")
     },
     {
-      path: "/setting",
-      component: () => import("./views/Setting.vue")
+      path: "/customize",
+      component: () => import("./views/Customize.vue")
+    },
+    {
+      path: "/about",
+      component: () => import("./views/About.vue")
+    },
+    {
+      path: "/*",
+      component: () => import("./views/Error.vue")
     }
   ]
 });

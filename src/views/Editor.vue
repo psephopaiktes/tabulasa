@@ -1,31 +1,7 @@
 <template>
   <main>
-    <textarea id="code">
-# Apple Inherit
-- aaa
-- aaa
-- aaaaaa
-
-あの**イーハトーヴォ**のすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる*草の波*。 またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう
-
-## aaa
-- aaaa
-- ああああ`あああ`あああ
-
-> あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。 またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう
-
-## ああああ
-```
-ああああ
-```
-- [ ] task1
-- [x] task2
-### あああ
-- [link](goole.com)
-- ![](aa.com)
-### あああ
-あああ~~aaa~~ああ</textarea
-    >
+    <p id="snackbar">Tabulasa auto-saves your note.</p>
+    <textarea id="code" placeholder="Type here"></textarea>
   </main>
 </template>
 
@@ -34,6 +10,8 @@ import { Component, Vue } from "vue-property-decorator";
 const CodeMirror = require("codemirror");
 require("codemirror/addon/edit/continuelist.js");
 require("codemirror/addon/selection/active-line.js");
+require("codemirror/addon/display/placeholder.js");
+require("codemirror/addon/scroll/simplescrollbars.js");
 require("codemirror/mode/gfm/gfm.js");
 
 @Component
@@ -44,13 +22,52 @@ export default class Editor extends Vue {
   }
   public mounted() {
     const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      tabindex: 1,
       mode: "gfm",
       // indentUnit: 4,
       lineWrapping: true,
-      // styleActiveLine: true,
+      styleActiveLine: true,
       cursorBlinkRate: 320,
       cursorScrollMargin: 4,
+      scrollbarStyle: "overlay",
       extraKeys: { Enter: "newlineAndIndentContinueMarkdownList" }
+    });
+
+    editor.setValue(localStorage.memoData || "");
+
+    const element = document.getElementsByTagName("main")[0];
+    // Show Scrollbar while scrolling.
+    editor.on("scroll", () => {
+      if (!element) {
+        return;
+      }
+      element.classList.add("scroll");
+
+      setTimeout(() => {
+        element.classList.remove("scroll");
+      }, 100);
+    });
+    // Feedback for `⌘S`
+    const snackbar = document.getElementById("snackbar");
+    element.addEventListener("keydown", e => {
+      if ((e.ctrlKey && !e.metaKey) || (!e.ctrlKey && e.metaKey)) {
+        if (e.keyCode == 83) {
+          e.preventDefault();
+          localStorage.memoData = editor.getValue();
+          if (!snackbar) {
+            return;
+          }
+          snackbar.classList.add("active");
+          setTimeout(() => {
+            snackbar.classList.remove("active");
+          }, 1200);
+        }
+      }
+    });
+
+    // Save text when changed.
+    editor.on("change", () => {
+      localStorage.memoData = editor.getValue();
     });
   }
 }
@@ -59,18 +76,58 @@ export default class Editor extends Vue {
 <style lang="scss">
 @import "@/scss/const.scss";
 
+#snackbar {
+  position: fixed;
+  left: calc(50% - 200px);
+  bottom: -64px;
+  opacity: 0;
+  width: 400px;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 4px;
+  text-align: center;
+  z-index: $Z_NAV - 1;
+  letter-spacing: 0.05em;
+  background: rgba(#{$COLOR_RGB_THEME}, 0.8);
+  color: $COLOR_BASE;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 2px rgba(#000, 0.08), 0 4px 4px rgba(#000, 0.08),
+    0 8px 8px rgba(#000, 0.08), 0 16px 16px rgba(#000, 0.08);
+  transition: $TRANSITION;
+  &.active {
+    bottom: 48px;
+    opacity: 1;
+  }
+}
+
 // BASICS
 .CodeMirror {
-  width: calc(100% - 96px);
-  max-width: 30em;
-  margin: 0 auto;
   font-size: 20px;
+  font-family: RictyDiminishedDiscord, monospace;
   color: rgba(#{$COLOR_RGB_MAIN}, 0.8);
   line-height: 1.5;
   text-decoration-skip-ink: none;
+  width: calc(100% - 96px);
+  max-width: 30em;
+  margin: 0 auto;
+  -ms-overflow-style: none; // TODO
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 16vh;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      rgba(#{$COLOR_RGB_BASE}, 0),
+      rgba(#{$COLOR_RGB_BASE}, 1)
+    );
+    z-index: 2;
+  }
 }
 .CodeMirror-lines {
-  padding: 20vh 0;
+  padding: 16vh 0;
 }
 .CodeMirror pre.CodeMirror-line,
 .CodeMirror pre.CodeMirror-line-like {
@@ -141,8 +198,59 @@ export default class Editor extends Vue {
 }
 
 // ADDON
-.CodeMirror-activeline-background {
-  background: rgba(#{$COLOR_RGB_MAIN}, 0.05);
+.CodeMirror-focused .CodeMirror-activeline-background {
+  background: rgba(#{$COLOR_RGB_MAIN}, 0.03);
+}
+
+.CodeMirror-placeholder {
+  color: transparent;
+}
+.CodeMirror-empty.CodeMirror-focused .CodeMirror-placeholder {
+  color: rgba(#{$COLOR_RGB_MAIN}, 0.2);
+}
+
+.CodeMirror-overlayscroll .CodeMirror-scrollbar-filler,
+.CodeMirror-overlayscroll .CodeMirror-gutter-filler {
+  display: none;
+}
+
+.CodeMirror-overlayscroll-horizontal div,
+.CodeMirror-overlayscroll-vertical div {
+  position: absolute;
+  background: rgba(#{$COLOR_RGB_MAIN}, 0);
+  transition: $TRANSITION;
+}
+.scroll .CodeMirror-overlayscroll-horizontal div,
+.scroll .CodeMirror-overlayscroll-vertical div {
+  position: absolute;
+  background: rgba(#{$COLOR_RGB_MAIN}, 0.5);
+}
+
+.CodeMirror-overlayscroll-horizontal,
+.CodeMirror-overlayscroll-vertical {
+  position: absolute;
+  z-index: 6;
+}
+
+.CodeMirror-overlayscroll-horizontal {
+  bottom: 0;
+  left: 0;
+  height: 4px;
+}
+.CodeMirror-overlayscroll-horizontal div {
+  bottom: 0;
+  height: 100%;
+}
+
+.CodeMirror-overlayscroll-vertical {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 4px;
+}
+.CodeMirror-overlayscroll-vertical div {
+  right: 0;
+  width: 100%;
 }
 
 /* STOP */
@@ -255,7 +363,6 @@ export default class Editor extends Vue {
   white-space: pre;
   word-wrap: normal;
   line-height: inherit;
-  color: inherit;
   z-index: 2;
   position: relative;
   overflow: visible;

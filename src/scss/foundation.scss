@@ -32,10 +32,10 @@
     --color-theme-g: 103;
     --color-theme-b: 214;
 
-    --color-base: #fcfcfc;
-    --color-base-r: 252;
-    --color-base-g: 252;
-    --color-base-b: 252;
+    --color-base: #ffffff;
+    --color-base-r: 255;
+    --color-base-g: 255;
+    --color-base-b: 255;
 
     --color-main: #202124;
     --color-main-r: 32;
@@ -71,7 +71,7 @@ body {
   color: rgba($COLOR_MAIN,.8);
   line-height: 1.6;
   font-weight: normal;
-  font-family: RictyDiminishedDiscord, monospace;
+  font-family: Roboto, system-ui, sans-serif;
   font-smoothing: antialiased;
   overscroll-behavior: none;
 }

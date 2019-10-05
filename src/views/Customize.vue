@@ -1,7 +1,7 @@
 <template>
   <main>
     <Nav />
-    <h1>Setting</h1>
+    <h2>Customize</h2>
   </main>
 </template>
 
@@ -9,11 +9,11 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class Setting extends Vue {
+export default class Customize extends Vue {
   // lifecycle hook
   public beforeCreate() {
     // TODO: Confirm working. And change Favicon?
-    window.document.title = "Setting | " + this.$store.state.extensionName;
+    window.document.title = "Customize | " + this.$store.state.extensionName;
   }
 }
 </script>

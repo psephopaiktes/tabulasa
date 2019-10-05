@@ -12,18 +12,15 @@ new Vue({
 }).$mount("#app");
 
 window.console.log(
-  "%c iAiA 🐙 %c\nhttps://github.com/psephopaiktes/iAiA",
+  "%chttps://github.com/psephopaiktes/tabulasa",
   `
-    background: #023;
     padding: 20px 40px;
-    letter-spacing: .5em;
-    color: #0fe;
+    margin: 40px 0px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    letter-spacing: .1em;
     font-size: large;
     font-weight: bold;
-    font-style: italic;
     text-align: center;
-  `,
-  `
-    padding: 20px 0 40px;
   `
 );
