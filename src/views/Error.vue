@@ -1,7 +1,7 @@
 <template>
   <main>
     <Nav />
-    <h2>Error</h2>
+    <h2>404 | PAGE NOT FOUND</h2>
   </main>
 </template>
 
@@ -12,7 +12,6 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Error extends Vue {
   // lifecycle hook
   public beforeCreate() {
-    // TODO: Confirm working. And change Favicon?
     window.document.title = "Error | " + this.$store.state.extensionName;
   }
 }
@@ -20,4 +19,14 @@ export default class Error extends Vue {
 
 <style scoped lang="scss">
 @import "@/scss/const.scss";
+main {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+h2 {
+  font-size: 32px;
+  opacity: 0.6;
+}
 </style>

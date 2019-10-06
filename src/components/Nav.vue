@@ -62,15 +62,15 @@
           <a href="chrome://apps" @click="chrome('apps')"><iconApps />Apps</a>
         </li>
         <li>
-          <a href="chrome://dino" @click="chrome('dino')"
-            ><iconDino class="gray" />Dino</a
-          >
+          <a href="chrome://dino" @click="chrome('dino')">
+            <iconDino class="gray" />Dino
+          </a>
         </li>
       </ul>
 
       <hr />
 
-      <p>© Tabulasa</p>
+      <p>&copy; Tabulasa</p>
     </section>
   </nav>
 </template>
@@ -110,7 +110,7 @@ export default class Nav extends Vue {
 
   // methods
   public chrome(menu: string) {
-    eval(`chrome.tabs.update({ url: 'chrome://${menu}' });`);
+    chrome.tabs.update({ url: `chrome://${menu}` });
   }
 }
 </script>
@@ -123,8 +123,8 @@ nav {
 #menuButton {
   z-index: $Z_NAV;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 4px;
+  left: 4px;
   width: 48px;
   height: 48px;
   background: none;
@@ -206,10 +206,10 @@ nav {
       color: rgba(#{$COLOR_RGB_MAIN}, 0.8);
       transition: $TRANSITION;
       &:hover {
-        background: rgba(#{$COLOR_RGB_THEME}, 0.05);
+        background: rgba(#{$COLOR_RGB_THEME}, 0.1);
       }
       &.router-link-exact-active {
-        background: rgba(#{$COLOR_RGB_THEME}, 0.1);
+        background: rgba(#{$COLOR_RGB_THEME}, 0.2);
         color: $COLOR_THEME;
         svg {
           fill: $COLOR_THEME !important;

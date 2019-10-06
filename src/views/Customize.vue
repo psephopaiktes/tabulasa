@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="page">
     <Nav />
     <h2>Customize</h2>
   </main>
@@ -12,7 +12,6 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Customize extends Vue {
   // lifecycle hook
   public beforeCreate() {
-    // TODO: Confirm working. And change Favicon?
     window.document.title = "Customize | " + this.$store.state.extensionName;
   }
 }

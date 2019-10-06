@@ -1,7 +1,19 @@
 <template>
-  <main>
+  <main class="page">
     <Nav />
     <h2>About</h2>
+    <p>
+      contact:
+      <a href="https://twitter.com/psephopaiktes" target="_brank">
+        @psephopaiktes.
+      </a>
+    </p>
+    <p>
+      source:
+      <a href="https://github.com/psephopaiktes/tabulasa" target="_brank">
+        GitHub.
+      </a>
+    </p>
   </main>
 </template>
 
@@ -12,7 +24,6 @@ import { Component, Vue } from "vue-property-decorator";
 export default class About extends Vue {
   // lifecycle hook
   public beforeCreate() {
-    // TODO: Confirm working. And change Favicon?
     window.document.title = "About | " + this.$store.state.extensionName;
   }
 }

@@ -24,16 +24,25 @@ export default class Editor extends Vue {
     const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
       tabindex: 1,
       mode: "gfm",
-      // indentUnit: 4,
+      indentUnit: 2,
       lineWrapping: true,
       styleActiveLine: true,
       cursorBlinkRate: 320,
       cursorScrollMargin: 4,
-      scrollbarStyle: "overlay",
-      extraKeys: { Enter: "newlineAndIndentContinueMarkdownList" }
+      scrollbarStyle: "overlay"
+    });
+
+    editor.setOption("extraKeys", {
+      Enter: "newlineAndIndentContinueMarkdownList",
+      Tab: () => {
+        editor.replaceSelection(
+          Array(editor.getOption("indentUnit") + 1).join(" ")
+        );
+      }
     });
 
     editor.setValue(localStorage.memoData || "");
+    document.getElementsByClassName("CodeMirror")[0].classList.add("show");
 
     const element = document.getElementsByTagName("main")[0];
     // Show Scrollbar while scrolling.
@@ -110,7 +119,12 @@ export default class Editor extends Vue {
   width: calc(100% - 96px);
   max-width: 30em;
   margin: 0 auto;
-  -ms-overflow-style: none; // TODO
+  -ms-overflow-style: none;
+  opacity: 0;
+  transition: 0.3s ease-out;
+  &.show {
+    opacity: 1;
+  }
   &::after {
     content: "";
     display: block;
