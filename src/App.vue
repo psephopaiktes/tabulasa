@@ -17,7 +17,6 @@ import Nav from "@/components/Nav.vue";
 export default class App extends Vue {
   // lifecycle hook
   public mounted() {
-    // alert(this.$route.query);
     if (location.search.match(/option/g)) {
       this.$router.push("/customize");
     }

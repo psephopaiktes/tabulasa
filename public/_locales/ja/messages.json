@@ -1,11 +1,11 @@
 {
   "locale":{
-    "message": "en"
+    "message": "ja"
   },
   "extName": {
-    "message": "Tabulasa｜新しいタブで使える究極にシンプルなMarkdownエディタ"
+    "message": "Tabulasa"
   },
   "extDescription": {
-    "message": "Query is ..."
+    "message": "新しいタブで使える究極にシンプルなMarkdownエディタ"
   }
 }

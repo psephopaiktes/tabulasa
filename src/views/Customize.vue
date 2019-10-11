@@ -2,6 +2,7 @@
   <main class="page">
     <Nav />
     <h2>Customize</h2>
+    <p>TBD</p>
   </main>
 </template>
 

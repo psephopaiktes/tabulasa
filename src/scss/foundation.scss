@@ -41,7 +41,6 @@
     --color-main-r: 32;
     --color-main-g: 33;
     --color-main-b: 36;
-
   }
   @media (prefers-color-scheme: dark) {
     --color-theme: #8ab4f8;
@@ -68,7 +67,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 18px;
-  color: rgba($COLOR_MAIN,.8);
+  color: rgba(#{$COLOR_RGB_MAIN},.8);
   line-height: 1.6;
   font-weight: normal;
   font-family: Roboto, system-ui, sans-serif;
@@ -112,10 +111,14 @@ button{
     font-weight: bold;
     letter-spacing: .02em;
     line-height: 1.2;
+    color: rgba(#{$COLOR_RGB_MAIN},1);
   }
   h3{
     margin-top: 32px;
     font-size: 32px;
     line-height: 1.2;
+  }
+  p{
+    margin-top: 8px;
   }
 }

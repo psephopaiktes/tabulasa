@@ -7,7 +7,7 @@
     <div id="overlay" @click="show = false" :class="{ show: show }"></div>
 
     <section id="drawer" :class="{ show: show }">
-      <h1>Tabulasa</h1>
+      <h1><Logo /></h1>
 
       <hr />
 
@@ -17,11 +17,11 @@
             <iconEditor class="gray" /> Editor
           </router-link>
         </li>
-        <li>
+        <!-- <li>
           <router-link to="/customize" @click.native="show = false">
             <iconCustomize class="gray" />Customize
           </router-link>
-        </li>
+        </li> -->
         <li>
           <router-link to="/about" @click.native="show = false">
             <iconAbout class="gray" />About
@@ -67,16 +67,13 @@
           </a>
         </li>
       </ul>
-
-      <hr />
-
-      <p>&copy; Tabulasa</p>
     </section>
   </nav>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import Logo from "@/assets/logo.vue";
 import iconAbout from "@/assets/icon/about.vue";
 import iconApps from "@/assets/icon/apps.vue";
 import iconBookmarks from "@/assets/icon/bookmarks.vue";
@@ -91,6 +88,7 @@ import iconSettings from "@/assets/icon/settings.vue";
 
 @Component({
   components: {
+    Logo,
     iconAbout,
     iconApps,
     iconBookmarks,
@@ -132,9 +130,9 @@ nav {
   outline: none;
   transition: inherit;
   opacity: 0.2;
-  color: $COLOR_MAIN;
   svg {
     width: 32px;
+    fill: $COLOR_MAIN;
     height: auto;
   }
   &:hover {
@@ -176,7 +174,13 @@ nav {
     left: 0;
   }
   h1 {
-    margin-left: 16px;
+    margin: 0;
+    svg {
+      margin: 36px 0 24px 52px;
+      width: 140px;
+      height: auto;
+      fill: $COLOR_THEME;
+    }
   }
   hr {
     margin-top: 8px;

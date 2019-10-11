@@ -1,12 +1,14 @@
 <template>
   <main>
-    <p id="snackbar">Tabulasa auto-saves your note.</p>
+    <p id="snackbar"><iconCheck />Tabulasa auto-saves your note.</p>
     <textarea id="code" placeholder="Type here"></textarea>
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import iconCheck from "@/assets/icon/check.vue";
+import welcome from "@/assets/welcome.ts";
 const CodeMirror = require("codemirror");
 require("codemirror/addon/edit/continuelist.js");
 require("codemirror/addon/selection/active-line.js");
@@ -14,7 +16,11 @@ require("codemirror/addon/display/placeholder.js");
 require("codemirror/addon/scroll/simplescrollbars.js");
 require("codemirror/mode/gfm/gfm.js");
 
-@Component
+@Component({
+  components: {
+    iconCheck
+  }
+})
 export default class Editor extends Vue {
   // lifecycle hook
   public beforeCreate() {
@@ -78,6 +84,10 @@ export default class Editor extends Vue {
     editor.on("change", () => {
       localStorage.memoData = editor.getValue();
     });
+
+    if (localStorage.memoData == undefined) {
+      editor.setValue(welcome);
+    }
   }
 }
 </script>
@@ -103,6 +113,14 @@ export default class Editor extends Vue {
   box-shadow: 0 2px 2px rgba(#000, 0.08), 0 4px 4px rgba(#000, 0.08),
     0 8px 8px rgba(#000, 0.08), 0 16px 16px rgba(#000, 0.08);
   transition: $TRANSITION;
+  svg {
+    width: 32px;
+    height: auto;
+    fill: $COLOR_BASE;
+    position: absolute;
+    top: 7px;
+    left: 8px;
+  }
   &.active {
     bottom: 48px;
     opacity: 1;
@@ -121,8 +139,15 @@ export default class Editor extends Vue {
   margin: 0 auto;
   -ms-overflow-style: none;
   opacity: 0;
-  transition: 0.3s ease-out;
+  transition: 0.2s ease;
   &.show {
+    opacity: 0.2;
+  }
+  &:not(.CodeMirror-focused).CodeMirror-empty:hover {
+    background: rgba(#{$COLOR_RGB_MAIN}, 0.1);
+  }
+  &.CodeMirror-focused,
+  &:hover {
     opacity: 1;
   }
   &::after {
