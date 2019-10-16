@@ -13,7 +13,7 @@
 
       <ul>
         <li>
-          <router-link to="/" @click.native="show = false">
+          <router-link to="/" @click.native="show = false" id="focusTarget">
             <iconEditor class="gray" /> Editor
           </router-link>
         </li>
@@ -109,6 +109,24 @@ export default class Nav extends Vue {
   // methods
   public chrome(menu: string) {
     chrome.tabs.update({ url: `chrome://${menu}` });
+  }
+
+  // lifecycle hook
+  public mounted() {
+    // toggle drawer by `⌘B`
+    // const focusTargert = document.getElementById("focusTarget");
+    window.addEventListener("keydown", e => {
+      if ((e.ctrlKey && !e.metaKey) || (!e.ctrlKey && e.metaKey)) {
+        if (e.keyCode == 66) {
+          e.preventDefault();
+          this.show = !this.show;
+          // if (!focusTargert) {
+          //   return;
+          // }
+          // focusTargert.focus();
+        }
+      }
+    });
   }
 }
 </script>

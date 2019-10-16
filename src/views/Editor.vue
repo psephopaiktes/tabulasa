@@ -8,13 +8,21 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import iconCheck from "@/assets/icon/check.vue";
+import iconPreview from "@/assets/icon/preview.vue";
+import iconExport from "@/assets/icon/export.vue";
+import iconShare from "@/assets/icon/share.vue";
 import welcome from "@/assets/welcome.ts";
+import vsCodeKeymap from "@/lib/keymap/vscode";
 const CodeMirror = require("codemirror");
+require("codemirror/addon/dialog/dialog.js");
+require("codemirror/addon/search/search.js");
 require("codemirror/addon/edit/continuelist.js");
+require("codemirror/addon/comment/comment.js");
 require("codemirror/addon/selection/active-line.js");
 require("codemirror/addon/display/placeholder.js");
 require("codemirror/addon/scroll/simplescrollbars.js");
 require("codemirror/mode/gfm/gfm.js");
+require("codemirror/keymap/sublime");
 
 @Component({
   components: {
@@ -27,19 +35,23 @@ export default class Editor extends Vue {
     window.document.title = this.$store.state.extensionName;
   }
   public mounted() {
+    const isMac = window.navigator.userAgent.toLowerCase().search(/mac/);
+    const keymap = isMac ? vsCodeKeymap.mac : vsCodeKeymap.win;
     const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
       tabindex: 1,
       mode: "gfm",
-      indentUnit: 2,
+      indentUnit: 4,
       lineWrapping: true,
       styleActiveLine: true,
       cursorBlinkRate: 320,
       cursorScrollMargin: 4,
-      scrollbarStyle: "overlay"
+      scrollbarStyle: "overlay",
+      extraKeys: keymap,
+      closeOnBlur: false
     });
 
-    editor.setOption("extraKeys", {
-      Enter: "newlineAndIndentContinueMarkdownList",
+    editor;
+    editor.addKeyMap({
       Tab: () => {
         editor.replaceSelection(
           Array(editor.getOption("indentUnit") + 1).join(" ")
@@ -170,7 +182,63 @@ export default class Editor extends Vue {
 }
 .CodeMirror pre.CodeMirror-line,
 .CodeMirror pre.CodeMirror-line-like {
-  padding: 0 4px; /* Horizontal padding of content */
+  padding: 0 8px; /* Horizontal padding of content */
+}
+
+// DIALOG
+.CodeMirror-dialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: rgba(#{$COLOR_RGB_BASE}, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 15;
+  padding: 1.2em 0.2em 0.4em;
+  overflow: hidden;
+  color: inherit;
+}
+.CodeMirror-dialog-top {
+  border-bottom: 2px solid $COLOR_THEME;
+  top: 0;
+}
+.CodeMirror-search-label {
+  color: $COLOR_THEME;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  line-height: 20px;
+  letter-spacing: 0.05em;
+}
+.CodeMirror-search-hint {
+  display: none;
+}
+.CodeMirror-dialog input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: calc(100% - 5em) !important;
+  height: 20px;
+  line-height: 20px;
+  color: $COLOR_MAIN;
+  font-size: 0.8em;
+}
+.CodeMirror-dialog button {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  font-size: 0.7em;
+  border-radius: 3px;
+  border: none;
+  background: rgba(#{$COLOR_RGB_MAIN}, 0.6);
+  color: $COLOR_BASE;
+  &:focus,
+  &:hover,
+  &:active {
+    background: $COLOR_THEME;
+  }
+}
+.cm-searching {
+  background: rgba(#{$COLOR_RGB_MAIN}, 0.2) !important;
 }
 
 // CURSOR
@@ -181,7 +249,6 @@ export default class Editor extends Vue {
 }
 
 // THEME
-
 .cm-header {
   font-weight: bold;
 }
@@ -234,6 +301,18 @@ export default class Editor extends Vue {
 .cm-image {
   text-decoration: none;
   color: rgba(#{$COLOR_RGB_THEME}, 1);
+}
+.cm-hr {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    height: 17px;
+    width: calc(100vw - 100px);
+    max-width: 29em;
+    border-bottom: 2px solid rgba(#{$COLOR_RGB_MAIN}, 0.1);
+    left: 0;
+  }
 }
 
 // ADDON
