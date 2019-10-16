@@ -1,0 +1,11 @@
+{
+  "locale":{
+    "message": "ja"
+  },
+  "extName": {
+    "message": "Tabulasa"
+  },
+  "extDescription": {
+    "message": "新しいタブで使える究極にシンプルなMarkdownエディタ"
+  }
+}

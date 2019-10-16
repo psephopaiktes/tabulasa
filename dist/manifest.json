@@ -1,0 +1,24 @@
+{
+  "name": "__MSG_extName__",
+  "author": "Akira HIRATA",
+  "description": "__MSG_extDescription__",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "default_locale": "en",
+  "icons": {
+    "16": "icon/16.png",
+    "48": "icon/48.png",
+    "128": "icon/128.png"
+  },
+  "permissions": [
+    "tabs",
+    "storage"
+  ],
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "options_page": "index.html?option",
+  "minimum_chrome_version": "22",
+  "homepage_url": "https://psephopaiktes.github.io/tabulasa/",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'"
+}

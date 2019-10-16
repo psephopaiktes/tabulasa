@@ -1,0 +1,11 @@
+{
+  "locale":{
+    "message": "en"
+  },
+  "extName": {
+    "message": "Tabulasa"
+  },
+  "extDescription": {
+    "message": "Ultimately simple new tab Markdown editor."
+  }
+}
