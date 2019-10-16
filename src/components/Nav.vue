@@ -108,7 +108,11 @@ export default class Nav extends Vue {
 
   // methods
   public chrome(menu: string) {
-    chrome.tabs.update({ url: `chrome://${menu}` });
+    try {
+      chrome.tabs.update({ url: `chrome://${menu}` });
+    } catch (error) {
+      alert("This feature can't be used in Demo.");
+    }
   }
 
   // lifecycle hook

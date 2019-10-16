@@ -2,6 +2,29 @@
   <main>
     <p id="snackbar"><iconCheck />Tabulasa auto-saves your note.</p>
     <textarea id="code" placeholder="Type here"></textarea>
+    <nav id="action">
+      <ul>
+        <li>
+          <button>
+            <iconPreview />
+            PREVIEW
+          </button>
+        </li>
+        <li>
+          <button>
+            <iconExport />
+            EXPORT
+          </button>
+        </li>
+        <li>
+          <button>
+            <iconShare />
+            TWEET
+            <!-- https://twitter.com/intent/tweet?text= -->
+          </button>
+        </li>
+      </ul>
+    </nav>
   </main>
 </template>
 

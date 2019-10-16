@@ -1,19 +1,29 @@
 <template>
   <main class="page">
     <Nav />
-    <h2>About</h2>
-    <p>
-      contact:
-      <a href="https://twitter.com/psephopaiktes" target="_brank">
-        @psephopaiktes.
-      </a>
-    </p>
-    <p>
-      source:
-      <a href="https://github.com/psephopaiktes/tabulasa" target="_brank">
-        GitHub.
-      </a>
-    </p>
+    <h2>URLs</h2>
+    <ul>
+      <li>
+        contact:
+        <a href="https://twitter.com/psephopaiktes" target="_brank">
+          @psephopaiktes.
+        </a>
+      </li>
+      <li>
+        source:
+        <a href="https://github.com/psephopaiktes/tabulasa" target="_brank">
+          GitHub.
+        </a>
+      </li>
+    </ul>
+    <h2>Share Tabulasa</h2>
+    <ul>
+      <li><a href="">Twitter</a></li>
+      <li><a href="">Facebook</a></li>
+      <li><a href="">Mail</a></li>
+    </ul>
+    <h2>Support Tabulasa</h2>
+    <ul></ul>
   </main>
 </template>
 
