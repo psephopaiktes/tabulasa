@@ -37,6 +37,9 @@
     "typescript": "^3.4.3",
     "vue-template-compiler": "^2.6.10"
   },
+  "vue": {
+    "publicPath": "./"
+  },
   "eslintConfig": {
     "root": true,
     "env": {
