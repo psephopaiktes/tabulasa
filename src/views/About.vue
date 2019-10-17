@@ -1,7 +1,9 @@
 <template>
   <main class="page">
     <Nav />
+    <h1>About</h1>
     <h2>URLs</h2>
+    <h3>aaa</h3>
     <ul>
       <li>
         contact:
@@ -18,9 +20,22 @@
     </ul>
     <h2>Share Tabulasa</h2>
     <ul>
-      <li><a href="">Twitter</a></li>
-      <li><a href="">Facebook</a></li>
-      <li><a href="">Mail</a></li>
+      <li>
+        <a
+          href="https://twitter.com/intent/tweet?url=https://psephopaiktes.github.io/tabulasa/"
+          target="_brank"
+        >
+          Twitter
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.facebook.com/sharer/sharer.php?u=https://psephopaiktes.github.io/tabulasa/"
+          target="_brank"
+        >
+          Facebook
+        </a>
+      </li>
     </ul>
     <h2>Support Tabulasa</h2>
     <ul></ul>

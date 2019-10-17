@@ -161,7 +161,8 @@ export default class Editor extends Vue {
 // BASICS
 .CodeMirror {
   font-size: 20px;
-  font-family: RictyDiminishedDiscord, monospace;
+  font-family: RictyDiminishedDiscord, "Ricty Diminished", Ricty, Menlo,
+    monospace;
   color: rgba(#{$COLOR_RGB_MAIN}, 0.8);
   line-height: 1.5;
   text-decoration-skip-ink: none;
@@ -175,7 +176,24 @@ export default class Editor extends Vue {
     opacity: 0.2;
   }
   &:not(.CodeMirror-focused).CodeMirror-empty:hover {
-    background: rgba(#{$COLOR_RGB_MAIN}, 0.1);
+    cursor: text;
+    &::before {
+      content: "CLICK & EDIT";
+      position: absolute;
+      display: block;
+      top: 8vh;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      padding-top: 12vh;
+      background: rgba(#{$COLOR_RGB_MAIN}, 0.08);
+      color: rgba(#{$COLOR_RGB_BASE}, 1);
+      font-size: 48px;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      border-radius: 4px;
+    }
   }
   &.CodeMirror-focused,
   &:hover {
