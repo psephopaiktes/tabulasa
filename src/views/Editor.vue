@@ -8,19 +8,14 @@
           <button>
             <iconPreview />
             PREVIEW
+            <span>⌥1</span>
           </button>
         </li>
         <li>
           <button>
             <iconExport />
             EXPORT
-          </button>
-        </li>
-        <li>
-          <button>
-            <iconShare />
-            TWEET
-            <!-- https://twitter.com/intent/tweet?text= -->
+            <span>⌥2</span>
           </button>
         </li>
       </ul>
@@ -33,7 +28,6 @@ import { Component, Vue } from "vue-property-decorator";
 import iconCheck from "@/assets/icon/check.vue";
 import iconPreview from "@/assets/icon/preview.vue";
 import iconExport from "@/assets/icon/export.vue";
-import iconShare from "@/assets/icon/share.vue";
 import welcome from "@/assets/welcome.ts";
 import vsCodeKeymap from "@/lib/keymap/vscode";
 const CodeMirror = require("codemirror");
@@ -49,7 +43,9 @@ require("codemirror/keymap/sublime");
 
 @Component({
   components: {
-    iconCheck
+    iconCheck,
+    iconPreview,
+    iconExport
   }
 })
 export default class Editor extends Vue {
@@ -189,7 +185,7 @@ export default class Editor extends Vue {
     content: "";
     display: block;
     width: 100%;
-    height: 16vh;
+    height: 10vh;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -201,7 +197,7 @@ export default class Editor extends Vue {
   }
 }
 .CodeMirror-lines {
-  padding: 16vh 0;
+  padding: 12vh 0;
 }
 .CodeMirror pre.CodeMirror-line,
 .CodeMirror pre.CodeMirror-line-like {
@@ -623,5 +619,51 @@ div.CodeMirror-dragcursors {
 /* Help users use markselection to safely style text background */
 span.CodeMirror-selectedtext {
   background: none;
+}
+
+#action {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: $Z_NAV - 1;
+  ul {
+    display: flex;
+  }
+  button {
+    display: block;
+    position: relative;
+    height: 32px;
+    margin-left: 12px;
+    border-radius: 12px;
+    padding-right: 14px;
+    padding-left: 30px;
+    color: rgba(#{$COLOR_RGB_MAIN}, 0.7);
+    border: 1px solid rgba(#{$COLOR_RGB_MAIN}, 0.15);
+    background: $COLOR_BASE;
+    line-height: 30px;
+    outline: none;
+    transition: $TRANSITION;
+    span {
+      opacity: 0.5;
+      border-left: 1px solid currentColor;
+      margin-left: 0.5em;
+      padding-left: 0.5em;
+    }
+    &:focus,
+    &:hover {
+      color: rgba(#{$COLOR_RGB_MAIN}, 0.8);
+      transform: scale(1.01);
+      box-shadow: 0 1px 2px rgba(#000, 0.03), 0 2px 4px rgba(#000, 0.03),
+        0 4px 8px rgba(#000, 0.03), 0 8px 16px rgba(#000, 0.03),
+        0 16px 32px rgba(#000, 0.03);
+    }
+  }
+  svg {
+    position: absolute;
+    top: 7px;
+    left: 9px;
+    width: 16px;
+    fill: currentColor;
+  }
 }
 </style>

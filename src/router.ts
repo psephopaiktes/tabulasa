@@ -16,6 +16,10 @@ export default new Router({
       component: () => import("./views/Editor.vue")
     },
     {
+      path: "/tabulasa/dist/",
+      component: () => import("./views/Editor.vue")
+    },
+    {
       path: "/customize",
       component: () => import("./views/Customize.vue")
     },

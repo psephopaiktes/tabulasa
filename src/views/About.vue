@@ -24,6 +24,8 @@
     </ul>
     <h2>Support Tabulasa</h2>
     <ul></ul>
+    <h2>Other</h2>
+    <p>This site use Google Analytics.</p>
   </main>
 </template>
 
