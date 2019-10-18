@@ -3,7 +3,6 @@
     <Nav />
     <h1>About</h1>
     <h2>URLs</h2>
-    <h3>aaa</h3>
     <ul>
       <li>
         contact:
@@ -37,8 +36,8 @@
         </a>
       </li>
     </ul>
-    <h2>Support Tabulasa</h2>
-    <ul></ul>
+    <!-- <h2>Support Tabulasa</h2>
+    <ul></ul> -->
     <h2>Other</h2>
     <p>This site use Google Analytics.</p>
   </main>
