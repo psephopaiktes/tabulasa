@@ -2,7 +2,7 @@
   <main>
     <p id="snackbar"><iconCheck />Tabulasa auto-saves your note.</p>
     <textarea id="code" placeholder="Type here"></textarea>
-    <nav id="action">
+    <!-- <nav id="action">
       <ul>
         <li>
           <button>
@@ -19,7 +19,7 @@
           </button>
         </li>
       </ul>
-    </nav>
+    </nav> -->
   </main>
 </template>
 
