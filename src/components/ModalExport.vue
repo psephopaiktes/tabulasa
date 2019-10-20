@@ -133,8 +133,9 @@ section {
     font-size: 0.9em;
     background: none;
     border: 1px solid rgba(#{$COLOR_RGB_MAIN}, 0.2);
-    border-radius: 3px;
+    border-radius: 4px;
     outline: none;
+    color: $COLOR_MAIN;
     &:focus {
       border-color: rgba(#{$COLOR_RGB_THEME}, 0.6);
     }
