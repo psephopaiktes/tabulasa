@@ -1,35 +1,23 @@
 <template>
-  <main>
+  <main :class="$store.state.mode">
+    <!-- Modals -->
     <p id="snackbar"><iconCheck />Tabulasa auto-saves your note.</p>
+
+    <!-- Content -->
+    <output v-html="compiledMarkdown"></output>
     <textarea id="code" placeholder="Type here"></textarea>
-    <!-- <nav id="action">
-      <ul>
-        <li>
-          <button>
-            <iconPreview />
-            PREVIEW
-            <span>⌥1</span>
-          </button>
-        </li>
-        <li>
-          <button>
-            <iconExport />
-            EXPORT
-            <span>⌥2</span>
-          </button>
-        </li>
-      </ul>
-    </nav> -->
+
+    <ActionButtons v-if="focus" />
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ActionButtons from "@/components/ActionButtons.vue";
 import iconCheck from "@/assets/icon/check.vue";
-import iconPreview from "@/assets/icon/preview.vue";
-import iconExport from "@/assets/icon/export.vue";
 import welcome from "@/assets/welcome.ts";
 import vsCodeKeymap from "@/lib/keymap/vscode";
+const marked = require("marked");
 const CodeMirror = require("codemirror");
 require("codemirror/addon/dialog/dialog.js");
 require("codemirror/addon/search/search.js");
@@ -43,17 +31,28 @@ require("codemirror/keymap/sublime");
 
 @Component({
   components: {
-    iconCheck,
-    iconPreview,
-    iconExport
+    ActionButtons,
+    iconCheck
   }
 })
 export default class Editor extends Vue {
+  // data
+  public focus: boolean = false;
+  // computed
+  public get compiledMarkdown(): string {
+    return marked(this.$store.state.memoData, { breaks: true });
+  }
   // lifecycle hook
   public beforeCreate() {
     window.document.title = this.$store.state.extensionName;
+    if (localStorage.memoData) {
+      this.$store.commit("updateMemoData", localStorage.memoData);
+    } else if (localStorage.memoData == undefined) {
+      this.$store.commit("updateMemoData", welcome);
+    }
   }
   public mounted() {
+    // Initialize CodeMirror Editor
     const isMac = window.navigator.userAgent.toLowerCase().search(/mac/);
     const keymap = isMac ? vsCodeKeymap.mac : vsCodeKeymap.win;
     const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -68,8 +67,6 @@ export default class Editor extends Vue {
       extraKeys: keymap,
       closeOnBlur: false
     });
-
-    editor;
     editor.addKeyMap({
       Tab: () => {
         editor.replaceSelection(
@@ -77,9 +74,16 @@ export default class Editor extends Vue {
         );
       }
     });
-
-    editor.setValue(localStorage.memoData || "");
+    editor.setValue(this.$store.state.memoData);
     document.getElementsByClassName("CodeMirror")[0].classList.add("show");
+    editor.on("focus", () => {
+      this.focus = true;
+    });
+
+    // Update Vuex when changed.
+    editor.on("change", () => {
+      this.$store.commit("updateMemoData", editor.getValue());
+    });
 
     const element = document.getElementsByTagName("main")[0];
     // Show Scrollbar while scrolling.
@@ -110,21 +114,14 @@ export default class Editor extends Vue {
         }
       }
     });
-
-    // Save text when changed.
-    editor.on("change", () => {
-      localStorage.memoData = editor.getValue();
-    });
-
-    if (localStorage.memoData == undefined) {
-      editor.setValue(welcome);
-    }
   }
 }
 </script>
 
 <style lang="scss">
 @import "@/scss/const.scss";
+@import "@/scss/object/previewHTML.scss";
+@import "@/scss/object/codeMirror.scss";
 
 #snackbar {
   position: fixed;
@@ -158,6 +155,20 @@ export default class Editor extends Vue {
   }
 }
 
+.edit output {
+  display: none;
+}
+output {
+  margin: 0 auto;
+  padding: 12vh 0;
+  width: calc(100% - 96px);
+  max-width: 720px;
+  display: block;
+}
+
+.preview .CodeMirror {
+  display: none;
+}
 // BASICS
 .CodeMirror {
   font-size: 20px;
@@ -169,34 +180,12 @@ export default class Editor extends Vue {
   width: calc(100% - 96px);
   max-width: 30em;
   margin: 0 auto;
-  -ms-overflow-style: none;
   opacity: 0;
-  transition: 0.2s ease;
+  transition: 0.3s ease-out;
   &.show {
     opacity: 0.2;
   }
-  &:not(.CodeMirror-focused).CodeMirror-empty:hover {
-    cursor: text;
-    &::before {
-      content: "CLICK & EDIT";
-      position: absolute;
-      display: block;
-      top: 8vh;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      padding-top: 12vh;
-      background: rgba(#{$COLOR_RGB_MAIN}, 0.08);
-      color: rgba(#{$COLOR_RGB_BASE}, 1);
-      font-size: 48px;
-      font-weight: bold;
-      letter-spacing: 0.1em;
-      border-radius: 4px;
-    }
-  }
-  &.CodeMirror-focused,
-  &:hover {
+  &.CodeMirror-focused {
     opacity: 1;
   }
   &::after {
@@ -406,282 +395,5 @@ export default class Editor extends Vue {
 .CodeMirror-overlayscroll-vertical div {
   right: 0;
   width: 100%;
-}
-
-/* STOP */
-/* The rest of this file contains styles related to the mechanics of
-   the editor. You probably shouldn't touch them. */
-
-.CodeMirror {
-  position: relative;
-  overflow: hidden;
-}
-
-.CodeMirror-scroll {
-  overflow: scroll !important; /* Things will break if this is overridden */
-  /* 30px is the magic margin used to hide the element's real scrollbars */
-  /* See overflow: hidden in .CodeMirror */
-  margin-bottom: -30px;
-  margin-right: -30px;
-  padding-bottom: 30px;
-  height: 100%;
-  outline: none; /* Prevent dragging from highlighting the element */
-  position: relative;
-}
-.CodeMirror-sizer {
-  position: relative;
-  border-right: 30px solid transparent;
-}
-
-/* The fake, visible scrollbars. Used to force redraw during scrolling
-   before actual scrolling happens, thus preventing shaking and
-   flickering artifacts. */
-.CodeMirror-vscrollbar,
-.CodeMirror-hscrollbar,
-.CodeMirror-scrollbar-filler,
-.CodeMirror-gutter-filler {
-  position: absolute;
-  z-index: 6;
-  display: none;
-}
-.CodeMirror-vscrollbar {
-  right: 0;
-  top: 0;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-.CodeMirror-hscrollbar {
-  bottom: 0;
-  left: 0;
-  overflow-y: hidden;
-  overflow-x: scroll;
-}
-.CodeMirror-scrollbar-filler {
-  right: 0;
-  bottom: 0;
-}
-.CodeMirror-gutter-filler {
-  left: 0;
-  bottom: 0;
-}
-
-.CodeMirror-gutters {
-  position: absolute;
-  left: 0;
-  top: 0;
-  min-height: 100%;
-  z-index: 3;
-}
-.CodeMirror-gutter {
-  white-space: normal;
-  height: 100%;
-  display: inline-block;
-  vertical-align: top;
-  margin-bottom: -30px;
-}
-.CodeMirror-gutter-wrapper {
-  position: absolute;
-  z-index: 4;
-  background: none !important;
-  border: none !important;
-}
-.CodeMirror-gutter-background {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 4;
-}
-.CodeMirror-gutter-elt {
-  position: absolute;
-  cursor: default;
-  z-index: 4;
-}
-.CodeMirror-gutter-wrapper ::selection {
-  background-color: transparent;
-}
-
-.CodeMirror-lines {
-  cursor: text;
-  min-height: 1px; /* prevents collapsing before first draw */
-}
-.CodeMirror pre.CodeMirror-line,
-.CodeMirror pre.CodeMirror-line-like {
-  /* Reset some styles that the rest of the page might have set */
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
-  border-width: 0;
-  background: transparent;
-  font-family: inherit;
-  font-size: inherit;
-  margin: 0;
-  white-space: pre;
-  word-wrap: normal;
-  line-height: inherit;
-  z-index: 2;
-  position: relative;
-  overflow: visible;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-font-variant-ligatures: contextual;
-  font-variant-ligatures: contextual;
-}
-.CodeMirror-wrap pre.CodeMirror-line,
-.CodeMirror-wrap pre.CodeMirror-line-like {
-  word-wrap: break-word;
-  white-space: pre-wrap;
-  word-break: normal;
-}
-
-.CodeMirror-linebackground {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 0;
-}
-
-.CodeMirror-linewidget {
-  position: relative;
-  z-index: 2;
-  padding: 0.1px; /* Force widget margins to stay inside of the container */
-}
-
-.CodeMirror-widget {
-}
-
-.CodeMirror-rtl pre {
-  direction: rtl;
-}
-
-.CodeMirror-code {
-  outline: none;
-}
-
-/* Force content-box sizing for the elements where we expect it */
-.CodeMirror-scroll,
-.CodeMirror-sizer,
-.CodeMirror-gutter,
-.CodeMirror-gutters,
-.CodeMirror-linenumber {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-}
-
-.CodeMirror-measure {
-  position: absolute;
-  width: 100%;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
-}
-
-.CodeMirror-cursor {
-  position: absolute;
-  pointer-events: none;
-}
-.CodeMirror-measure pre {
-  position: static;
-}
-
-div.CodeMirror-cursors {
-  visibility: hidden;
-  position: relative;
-  z-index: 3;
-}
-div.CodeMirror-dragcursors {
-  visibility: visible;
-}
-
-.CodeMirror-focused div.CodeMirror-cursors {
-  visibility: visible;
-}
-
-.CodeMirror-selected {
-  background: rgba(#{$COLOR_RGB_THEME}, 0.4);
-}
-.CodeMirror-focused .CodeMirror-selected {
-  background: rgba(#{$COLOR_RGB_THEME}, 0.6);
-}
-.CodeMirror-crosshair {
-  cursor: crosshair;
-}
-.CodeMirror-line::selection,
-.CodeMirror-line > span::selection,
-.CodeMirror-line > span > span::selection {
-  background: rgba(#{$COLOR_RGB_THEME}, 0.6);
-}
-
-.cm-searching {
-  background-color: #ffa;
-  background-color: rgba(255, 255, 0, 0.4);
-}
-
-/* Used to force a border model for a node */
-.cm-force-border {
-  padding-right: 0.1px;
-}
-
-@media print {
-  /* Hide the cursor when printing */
-  .CodeMirror div.CodeMirror-cursors {
-    visibility: hidden;
-  }
-}
-
-/* See issue #2901 */
-.cm-tab-wrap-hack:after {
-  content: "";
-}
-
-/* Help users use markselection to safely style text background */
-span.CodeMirror-selectedtext {
-  background: none;
-}
-
-#action {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  z-index: $Z_NAV - 1;
-  ul {
-    display: flex;
-  }
-  button {
-    display: block;
-    position: relative;
-    height: 32px;
-    margin-left: 12px;
-    border-radius: 12px;
-    padding-right: 14px;
-    padding-left: 30px;
-    color: rgba(#{$COLOR_RGB_MAIN}, 0.7);
-    border: 1px solid rgba(#{$COLOR_RGB_MAIN}, 0.15);
-    background: $COLOR_BASE;
-    line-height: 30px;
-    outline: none;
-    transition: $TRANSITION;
-    span {
-      opacity: 0.5;
-      border-left: 1px solid currentColor;
-      margin-left: 0.5em;
-      padding-left: 0.5em;
-    }
-    &:focus,
-    &:hover {
-      color: rgba(#{$COLOR_RGB_MAIN}, 0.8);
-      transform: scale(1.01);
-      box-shadow: 0 1px 2px rgba(#000, 0.03), 0 2px 4px rgba(#000, 0.03),
-        0 4px 8px rgba(#000, 0.03), 0 8px 16px rgba(#000, 0.03),
-        0 16px 32px rgba(#000, 0.03);
-    }
-  }
-  svg {
-    position: absolute;
-    top: 7px;
-    left: 9px;
-    width: 16px;
-    fill: currentColor;
-  }
 }
 </style>
