@@ -1,5 +1,5 @@
 <template>
-  <main class="page">
+  <main class="c-page">
     <Nav />
     <h2>Customize</h2>
     <p>TBD</p>

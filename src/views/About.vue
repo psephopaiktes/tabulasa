@@ -1,5 +1,5 @@
 <template>
-  <main class="page">
+  <main class="c-page">
     <Nav />
     <h1>About</h1>
     <h2>URLs</h2>

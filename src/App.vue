@@ -27,4 +27,5 @@ export default class App extends Vue {
 <style lang="scss">
 @import "@/scss/const.scss";
 @import "@/scss/foundation.scss";
+@import "@/scss/component.scss";
 </style>

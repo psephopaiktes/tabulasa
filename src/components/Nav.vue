@@ -4,7 +4,7 @@
       <iconMenu />
     </button>
 
-    <div id="overlay" @click="show = false" :class="{ show: show }"></div>
+    <div class="c-overlay" @click="show = false" :class="{ show: show }"></div>
 
     <section id="drawer" :class="{ show: show }">
       <h1><Logo /></h1>
@@ -159,24 +159,6 @@ nav {
   }
   &:hover {
     opacity: 0.4;
-  }
-}
-
-#overlay {
-  z-index: $Z_NAV + 1;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  opacity: 0;
-  background: rgba(#000, 0.4);
-  backdrop-filter: blur(2px);
-  transition: inherit;
-  &.show {
-    pointer-events: auto;
-    opacity: 1;
   }
 }
 
