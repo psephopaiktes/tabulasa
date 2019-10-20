@@ -7,7 +7,7 @@
     <output v-html="compiledMarkdown"></output>
     <textarea id="code" placeholder="Type here"></textarea>
 
-    <ActionButtons />
+    <ActionButtons v-if="focus" />
   </main>
 </template>
 
@@ -36,6 +36,8 @@ require("codemirror/keymap/sublime");
   }
 })
 export default class Editor extends Vue {
+  // data
+  public focus: boolean = false;
   // computed
   public get compiledMarkdown(): string {
     return marked(this.$store.state.memoData, { breaks: true });
@@ -74,6 +76,9 @@ export default class Editor extends Vue {
     });
     editor.setValue(this.$store.state.memoData);
     document.getElementsByClassName("CodeMirror")[0].classList.add("show");
+    editor.on("focus", () => {
+      this.focus = true;
+    });
 
     // Update Vuex when changed.
     editor.on("change", () => {
@@ -115,7 +120,8 @@ export default class Editor extends Vue {
 
 <style lang="scss">
 @import "@/scss/const.scss";
-@import "@/scss/codeMirror.scss";
+@import "@/scss/object/previewHTML.scss";
+@import "@/scss/object/codeMirror.scss";
 
 #snackbar {
   position: fixed;
@@ -153,16 +159,11 @@ export default class Editor extends Vue {
   display: none;
 }
 output {
-  font-size: 20px;
-  display: block;
-  width: calc(100% - 96px);
-  max-width: 30em;
   margin: 0 auto;
   padding: 12vh 0;
-  word-wrap: break-word;
-  font-family: "SF Pro Text", "Hiragino Sans", "ヒラギノ角ゴ",
-    "ヒラギノ角ゴ ProN", "游ゴシック", "Yu Gothic", YuGothic, Meiryo, "メイリオ",
-    Roboto, "Helvetica Neue", system-ui, "Helvetica", "Arial", sans-serif;
+  width: calc(100% - 96px);
+  max-width: 720px;
+  display: block;
 }
 
 .preview .CodeMirror {
@@ -184,8 +185,7 @@ output {
   &.show {
     opacity: 0.2;
   }
-  &.CodeMirror-focused,
-  &:hover {
+  &.CodeMirror-focused {
     opacity: 1;
   }
   &::after {

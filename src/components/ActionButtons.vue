@@ -1,6 +1,7 @@
 <template>
   <nav>
     <ModalExport
+      v-if="showExportModal"
       :show="showExportModal"
       @closeModal="showExportModal = false"
     />
@@ -68,6 +69,7 @@ export default class Nav extends Vue {
         }
       }
       // Esc
+      // TODO: FOCUS BACK CodeMirror
       if (e.keyCode == 27) {
         if (this.showExportModal) {
           this.showExportModal = false;
