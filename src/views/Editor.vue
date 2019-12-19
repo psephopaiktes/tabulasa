@@ -195,9 +195,13 @@ output {
   opacity: 0;
   transition: 0.3s ease-out;
   &.show {
-    opacity: 0.2;
+    opacity: 1;
   }
-  &.CodeMirror-focused {
+  &.show .CodeMirror-scroll {
+    opacity: 0.4;
+    transition: 0.3s ease-out;
+  }
+  &.CodeMirror-focused .CodeMirror-scroll {
     opacity: 1;
   }
   &::after {
@@ -321,8 +325,10 @@ output {
   opacity: 0.5;
 }
 .cm-comment {
-  color: rgba(#{$COLOR_RGB_MAIN}, 0.5);
-  margin: 0 0.2em;
+  background: rgba(#{$COLOR_RGB_MAIN}, 0.1);
+  padding: 0.2em;
+  border-radius: 3px;
+  color: rgba(#{$COLOR_RGB_MAIN}, 0.6);
 }
 .cm-meta,
 .cm-property {

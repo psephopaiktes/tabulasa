@@ -19,6 +19,6 @@ You can use \`Markdown\` syntax.
 
 - Bullet List.
 - **bold**, *italic*, ~~strike~~,
-  - [ ] task
-  - [x] task
+    - [x] task
+    - [ ] task
 `;

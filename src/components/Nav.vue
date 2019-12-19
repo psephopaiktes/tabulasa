@@ -114,24 +114,6 @@ export default class Nav extends Vue {
       alert("This feature can't be used in Demo.");
     }
   }
-
-  // lifecycle hook
-  public mounted() {
-    // toggle drawer by `⌘B`
-    // const focusTargert = document.getElementById("focusTarget");
-    window.addEventListener("keydown", e => {
-      if ((e.ctrlKey && !e.metaKey) || (!e.ctrlKey && e.metaKey)) {
-        if (e.keyCode == 66) {
-          e.preventDefault();
-          this.show = !this.show;
-          // if (!focusTargert) {
-          //   return;
-          // }
-          // focusTargert.focus();
-        }
-      }
-    });
-  }
 }
 </script>
 
