@@ -1,8 +1,6 @@
-<template>
-  <main>
-    <Nav />
-    <h2>404 | PAGE NOT FOUND</h2>
-  </main>
+<template lang="pug">
+main
+  h2 404 | PAGE NOT FOUND
 </template>
 
 <script lang="ts">

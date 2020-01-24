@@ -1,107 +1,56 @@
-<template>
-  <nav>
-    <button id="menuButton" @click="show = true" tabindex="2">
-      <iconMenu />
-    </button>
+<template lang="pug">
+nav
 
-    <div class="c-overlay" @click="show = false" :class="{ show: show }"></div>
+  button#menuButton(@click='show = true' tabindex='2') <img svg-inline src="@/assets/icon/menu.svg" />
 
-    <section id="drawer" :class="{ show: show }">
-      <h1><Logo /></h1>
+  .c-overlay(@click='show = false' :class='{ show: show }')
 
-      <hr />
+  section#drawer(:class='{ show: show }')
+    h1: <img svg-inline src="@/assets/logo.svg" />
+    hr
+    ul
+      li: router-link#focusTarget(to='/' @click.native='show = false')
+        <img svg-inline src="@/assets/icon/editor.svg" class="gray" />
+        | Editor
+      li: router-link(to='/options' @click.native='show = false')
+        <img svg-inline src="@/assets/icon/customize.svg" class="gray" />
+        | Options
+      li: router-link(to='/about' @click.native='show = false')
+        <img svg-inline src="@/assets/icon/about.svg" class="gray" />
+        | About
+    hr
+    h3 Chrome
+    ul.chrome
+      li: a(href='chrome://history' @click="chrome('history')")
+        <img svg-inline src="@/assets/icon/history.svg" class="blue" />
+        | History
+      li: a(href='chrome://downloads' @click="chrome('downloads')")
+        <img svg-inline src="@/assets/icon/downloads.svg" class="blue" />
+        | Downloads
+      li: a(href='chrome://bookmarks' @click="chrome('bookmarks')")
+        <img svg-inline src="@/assets/icon/bookmarks.svg" class="blue" />
+        | Bookmarks
+      li: a(href='chrome://extensions' @click="chrome('extensions')")
+        <img svg-inline src="@/assets/icon/extensions.svg" class="blue" />
+        | Extensions
+      li: a(href='chrome://settings' @click="chrome('settings')")
+        <img svg-inline src="@/assets/icon/settings.svg" class="blue" />
+        | Settings
+      li: a(href='chrome://apps' @click="chrome('apps')")
+        <img svg-inline src="@/assets/icon/apps.svg" />
+        | Apps
+      li: a(href='chrome://dino' @click="chrome('dino')")
+        <img svg-inline src="@/assets/icon/dino.svg" class="gray" />
+        | Dino
 
-      <ul>
-        <li>
-          <router-link to="/" @click.native="show = false" id="focusTarget">
-            <iconEditor class="gray" /> Editor
-          </router-link>
-        </li>
-        <!-- <li>
-          <router-link to="/customize" @click.native="show = false">
-            <iconCustomize class="gray" />Customize
-          </router-link>
-        </li> -->
-        <li>
-          <router-link to="/about" @click.native="show = false">
-            <iconAbout class="gray" />About
-          </router-link>
-        </li>
-      </ul>
+    p#copy: small: a(href="https://twitter.com/psephopaiktes") © Akira HIRATA
 
-      <hr />
-
-      <h3>Chrome</h3>
-      <ul class="chrome">
-        <li>
-          <a href="chrome://history" @click="chrome('history')">
-            <iconHistory class="blue" />History
-          </a>
-        </li>
-        <li>
-          <a href="chrome://downloads" @click="chrome('downloads')">
-            <iconDownloads class="blue" />Downloads
-          </a>
-        </li>
-        <li>
-          <a href="chrome://bookmarks" @click="chrome('bookmarks')">
-            <iconBookmarks class="blue" />Bookmarks
-          </a>
-        </li>
-        <li>
-          <a href="chrome://extensions" @click="chrome('extensions')">
-            <iconExtensions class="blue" />Extensions
-          </a>
-        </li>
-        <li>
-          <a href="chrome://settings" @click="chrome('settings')">
-            <iconSettings class="blue" />Settings
-          </a>
-        </li>
-        <li>
-          <a href="chrome://apps" @click="chrome('apps')"><iconApps />Apps</a>
-        </li>
-        <li>
-          <a href="chrome://dino" @click="chrome('dino')">
-            <iconDino class="gray" />Dino
-          </a>
-        </li>
-      </ul>
-    </section>
-  </nav>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Logo from "@/assets/logo.vue";
-import iconAbout from "@/assets/icon/about.vue";
-import iconApps from "@/assets/icon/apps.vue";
-import iconBookmarks from "@/assets/icon/bookmarks.vue";
-import iconCustomize from "@/assets/icon/customize.vue";
-import iconDino from "@/assets/icon/dino.vue";
-import iconDownloads from "@/assets/icon/downloads.vue";
-import iconEditor from "@/assets/icon/editor.vue";
-import iconExtensions from "@/assets/icon/extensions.vue";
-import iconMenu from "@/assets/icon/menu.vue";
-import iconHistory from "@/assets/icon/history.vue";
-import iconSettings from "@/assets/icon/settings.vue";
 
-@Component({
-  components: {
-    Logo,
-    iconAbout,
-    iconApps,
-    iconBookmarks,
-    iconCustomize,
-    iconDino,
-    iconDownloads,
-    iconEditor,
-    iconExtensions,
-    iconMenu,
-    iconHistory,
-    iconSettings
-  }
-})
+@Component
 export default class Nav extends Vue {
   // data
   public show: boolean = false;
@@ -221,11 +170,11 @@ nav {
     }
   }
   p {
-    margin: 32px 16px;
-    font-weight: bold;
-    font-size: 14px;
-    letter-spacing: 0.02em;
-    color: rgba(#{$COLOR_RGB_MAIN}, 0.4);
+    margin: 64px 16px 32px;
+    a {
+      text-decoration: none;
+      color: rgba(#{$COLOR_RGB_MAIN}, 0.4);
+    }
   }
 }
 </style>

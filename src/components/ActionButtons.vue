@@ -1,59 +1,57 @@
-<template>
-  <nav>
-    <ModalExport
-      v-if="showExportModal"
-      :show="showExportModal"
-      @closeModal="showExportModal = false"
-    />
+<template lang="pug">
+nav
 
-    <ul>
-      <li>
-        <button
-          @click="$store.commit('toggleMode')"
-          :class="{ edit: $store.state.mode == 'preview' }"
-        >
-          <iconModePreview v-if="$store.state.mode == 'edit'" />
-          <!-- <iconModePreview v-else-if="$store.state.mode == 'sbs'" /> -->
-          <iconModeEdit v-else-if="$store.state.mode == 'preview'" />
+  ModalExport(
+    v-if='showExportModal' :show='showExportModal'
+    @closeModal='showExportModal = false'
+  )
 
-          <span v-if="$store.state.mode == 'edit'">PREVIEW</span>
-          <!-- <span v-else-if="$store.state.mode == 'sbs'">PREVIEW</span> -->
-          <span v-else-if="$store.state.mode == 'preview'">EDIT</span>
+  ModalPost(
+    v-if='showPostModal' :show='showPostModal'
+    @closeModal='showPostModal = false'
+  )
 
-          <kbd>⌥1</kbd>
-        </button>
-      </li>
-      <li>
-        <button @click="showExportModal = true">
-          <iconExport />
-          EXPORT
-          <kbd>⌥2</kbd>
-        </button>
-      </li>
-    </ul>
-  </nav>
+  ul
+
+    li: button(@click="$store.commit('toggleMode')" :class="{ edit: $store.state.mode == 'preview' }")
+
+      <img v-if="$store.state.mode == 'edit'" svg-inline src="@/assets/icon/mode_preview.svg" />
+      //- <img v-else-if="$store.state.mode == 'sbs'" svg-inline src="@/assets/icon/mode_preview.svg" />
+      <img v-else-if="$store.state.mode == 'preview'" svg-inline src="@/assets/icon/mode_edit.svg" />
+
+      span(v-if="$store.state.mode == 'edit'") PREVIEW
+      //- span(v-else-if="$store.state.mode == 'sbs'") PREVIEW
+      span(v-else-if="$store.state.mode == 'preview'") EDIT
+
+      kbd ⌥1
+
+    li: button(@click='showExportModal = true')
+      <img svg-inline src="@/assets/icon/export.svg" />
+      | EXPORT
+      kbd ⌥2
+
+    li: button(@click='showPostModal = true')
+      <img svg-inline src="@/assets/icon/post.svg" />
+      | POST
+      kbd ⌥3
+
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ModalExport from "@/components/ModalExport.vue";
-import iconModeEdit from "@/assets/icon/mode_edit.vue";
-import iconModeSbs from "@/assets/icon/mode_sbs.vue";
-import iconModePreview from "@/assets/icon/mode_preview.vue";
-import iconExport from "@/assets/icon/export.vue";
+import ModalPost from "@/components/ModalPost.vue";
 
 @Component({
   components: {
     ModalExport,
-    iconModeEdit,
-    iconModeSbs,
-    iconModePreview,
-    iconExport
+    ModalPost
   }
 })
 export default class Nav extends Vue {
   // data
   public showExportModal: boolean = false;
+  public showPostModal: boolean = false;
   // lifecycle hook
   public mounted() {
     window.addEventListener("keydown", e => {
@@ -65,7 +63,17 @@ export default class Nav extends Vue {
         }
         if (e.keyCode == 50) {
           e.preventDefault();
+          if (this.showPostModal && !this.showExportModal) {
+            this.showPostModal = false;
+          }
           this.showExportModal = !this.showExportModal;
+        }
+        if (e.keyCode == 51) {
+          e.preventDefault();
+          if (this.showExportModal && !this.showPostModal) {
+            this.showExportModal = false;
+          }
+          this.showPostModal = !this.showPostModal;
         }
       }
       // Esc
@@ -73,7 +81,11 @@ export default class Nav extends Vue {
       if (e.keyCode == 27) {
         if (this.showExportModal) {
           this.showExportModal = false;
-        } else if (this.$store.state.mode == "preview") {
+        }
+        if (this.showPostModal) {
+          this.showPostModal = false;
+        }
+        if (this.$store.state.mode == "preview") {
           this.$store.commit("toggleMode");
         }
       }

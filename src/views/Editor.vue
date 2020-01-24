@@ -1,20 +1,22 @@
-<template>
-  <main :class="$store.state.mode">
-    <!-- Modals -->
-    <p id="snackbar"><iconCheck />Tabulasa auto-saves your note.</p>
+<template lang="pug">
+main(:class='$store.state.mode')
 
-    <!-- Content -->
-    <output v-html="compiledMarkdown"></output>
-    <textarea id="code" placeholder="Type here"></textarea>
+  // Modals
+  p#snackbar
+    <img svg-inline src="@/assets/icon/check.svg" />
+    | Tabulasa auto-saves your note.
 
-    <ActionButtons v-if="focus" />
-  </main>
+  // Content
+  output(v-html='compiledMarkdown')
+  textarea#code(placeholder='Type here')
+
+  ActionButtons(v-if='focus')
+
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ActionButtons from "@/components/ActionButtons.vue";
-import iconCheck from "@/assets/icon/check.vue";
 import welcome from "@/assets/welcome.ts";
 import vsCodeKeymap from "@/lib/keymap/vscode";
 const marked = require("marked");
@@ -31,8 +33,7 @@ require("codemirror/keymap/sublime");
 
 @Component({
   components: {
-    ActionButtons,
-    iconCheck
+    ActionButtons
   }
 })
 export default class Editor extends Vue {

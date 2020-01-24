@@ -15,17 +15,26 @@ export default new Router({
       path: "/",
       component: () => import("./views/Editor.vue")
     },
+    // * For Demo
     {
       path: "/tabulasa/dist/",
       component: () => import("./views/Editor.vue")
     },
     {
-      path: "/customize",
-      component: () => import("./views/Customize.vue")
+      path: "/dist/",
+      component: () => import("./views/Editor.vue")
+    },
+    {
+      path: "/options",
+      component: () => import("./views/Options.vue")
     },
     {
       path: "/about",
       component: () => import("./views/About.vue")
+    },
+    {
+      path: "/gist",
+      component: () => import("./views/Gist.vue")
     },
     {
       path: "/*",

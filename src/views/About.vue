@@ -1,53 +1,34 @@
-<template>
-  <main class="c-page">
-    <Nav />
-    <h1>About</h1>
-    <h2>URLs</h2>
-    <ul>
-      <li>
-        contact:
-        <a href="https://twitter.com/psephopaiktes" target="_brank">
-          @psephopaiktes.
-        </a>
-      </li>
-      <li>
-        source:
-        <a href="https://github.com/psephopaiktes/tabulasa" target="_brank">
-          GitHub.
-        </a>
-      </li>
-    </ul>
-    <h2>Share Tabulasa</h2>
-    <ul>
-      <li>
-        <a
-          href="https://twitter.com/intent/tweet?url=https://psephopaiktes.github.io/tabulasa/"
-          target="_brank"
-        >
-          Twitter
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://www.facebook.com/sharer/sharer.php?u=https://psephopaiktes.github.io/tabulasa/"
-          target="_brank"
-        >
-          Facebook
-        </a>
-      </li>
-    </ul>
-    <h2>Support Tabulasa</h2>
-    <ul>
-      <li>
-        <a href="https://paypal.me/psephopaiktes" target="_brank">PayPal</a>
-      </li>
-      <li>
-        <a href="http://amzn.asia/eoKfIyd" target="_brank">Amazon Wish List</a>
-      </li>
-    </ul>
-    <h2>Other</h2>
-    <p>This service use Google Analytics.</p>
-  </main>
+<template lang="pug">
+main.c-page
+
+  h1 About
+
+  h2 URLs
+  ul
+    li
+      | contact:
+      a(href='https://twitter.com/psephopaiktes', target='_brank')
+        | @psephopaiktes.
+    li
+      | source:
+      a(href='https://github.com/psephopaiktes/tabulasa', target='_brank')
+        | GitHub.
+
+  h2 Share Tabulasa
+  ul
+    li: a(href='https://twitter.com/intent/tweet?url=https://psephopaiktes.github.io/tabulasa/', target='_brank')
+      | Twitter
+    li: a(href='https://www.facebook.com/sharer/sharer.php?u=https://psephopaiktes.github.io/tabulasa/', target='_brank')
+      | Facebook
+
+  h2 Support Tabulasa
+  ul
+    li: a(href='https://paypal.me/psephopaiktes', target='_brank') PayPal
+    li: a(href='http://amzn.asia/eoKfIyd', target='_brank') Amazon Wish List
+
+  h2 Other
+  p This service use Google Analytics.
+
 </template>
 
 <script lang="ts">

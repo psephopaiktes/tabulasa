@@ -1,60 +1,34 @@
-<template>
-  <div>
-    <div
-      class="c-overlay"
-      @click="$emit('closeModal')"
-      :class="{ show: show }"
-    ></div>
-    <section :class="{ show: show }">
-      <h2>EXPORT</h2>
-      <input
-        id="fileNameField"
-        v-model="fileName"
-        type="text"
-        placeholder="file name"
-        @focus="$event.target.select()"
-        autofocus
-      />
-      <ul>
-        <li>
-          <a :href="files.txt" :download="fileName + '.txt'">
-            <iconFileText />
-            .txt
-          </a>
-        </li>
-        <li>
-          <a :href="files.md" :download="fileName + '.md'">
-            <iconFileMd />
-            .md
-          </a>
-        </li>
-        <li>
-          <a :href="files.html" :download="fileName + '.html'">
-            <iconFileHtml />
-            .html
-          </a>
-        </li>
-      </ul>
-    </section>
-  </div>
+<template lang="pug">
+div
+
+  .c-overlay(@click="$emit('closeModal')" :class='{ show: show }')
+
+  section(:class='{ show: show }')
+    h2 <img svg-inline src="@/assets/icon/export.svg" /> EXPORT
+    input#fileNameField(
+      v-model='fileName'
+      type='text'
+      placeholder='file name'
+      @focus='$event.target.select()'
+      autofocus
+    )
+    ul
+      li: a(:href='files.txt' :download="fileName + '.txt'")
+        <img svg-inline src="@/assets/icon/file_txt.svg" />.txt
+      li: a(:href='files.md' :download="fileName + '.md'")
+        <img svg-inline src="@/assets/icon/file_md.svg" />.md
+      li: a(:href='files.html' :download="fileName + '.html'")
+        <img svg-inline src="@/assets/icon/file_html.svg" />.html
+
 </template>
 
 <script lang="ts">
 import { Prop, Component, Vue } from "vue-property-decorator";
-import iconFileText from "@/assets/icon/file_txt.vue";
-import iconFileMd from "@/assets/icon/file_md.vue";
-import iconFileHtml from "@/assets/icon/file_html.vue";
 import htmlTemplate from "@/assets/html_template";
 const marked = require("marked");
 
-@Component({
-  components: {
-    iconFileText,
-    iconFileMd,
-    iconFileHtml
-  }
-})
-export default class Nav extends Vue {
+@Component
+export default class ModalPost extends Vue {
   // prop
   @Prop() show!: boolean;
 
@@ -107,6 +81,11 @@ export default class Nav extends Vue {
 @import "@/scss/const.scss";
 
 section {
+  h2 svg {
+    width: 1.1em;
+    vertical-align: text-top;
+    fill: rgba(#{$COLOR_RGB_MAIN}, 0.8);
+  }
   position: fixed;
   top: calc(20vh + 8px);
   opacity: 0;
@@ -160,7 +139,6 @@ section {
       height: 128px;
       border: 2px solid transparent;
       border-radius: 12px;
-      background: none;
       font-size: 18px;
       letter-spacing: 0.05em;
       outline: none;

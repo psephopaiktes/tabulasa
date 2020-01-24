@@ -7,7 +7,11 @@ export default new Vuex.Store({
   state: {
     extensionName: "Tabulasa",
     mode: "edit",
-    memoData: ""
+    memoData: "",
+    chromeSync: {
+      theme: "system",
+      gitHubToken: ""
+    }
   },
 
   mutations: {
@@ -27,6 +31,13 @@ export default new Vuex.Store({
           state.mode = "edit";
           break;
       }
+    },
+    getOptions(state, options) {
+      state.chromeSync = options;
+    },
+    setOptions(state, payload) {
+      state.chromeSync[payload.key] = payload.val;
+      chrome.storage.sync.set({ [payload.key]: payload.val });
     }
   },
 

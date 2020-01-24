@@ -25,8 +25,16 @@
   font-display: fallback;
 }
 
-:root{
-  @media (prefers-color-scheme: light) {
+body {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+#app{
+  &.light{
     --color-theme: #3367d6;
     --color-theme-r: 51;
     --color-theme-g: 103;
@@ -42,7 +50,7 @@
     --color-main-g: 33;
     --color-main-b: 36;
   }
-  @media (prefers-color-scheme: dark) {
+  &.dark{
     --color-theme: #8ab4f8;
     --color-theme-r: 138;
     --color-theme-g: 180;
@@ -58,21 +66,56 @@
     --color-main-g: 249;
     --color-main-b: 250;
   }
-  background-color: $COLOR_BASE;
-  -webkit-text-size-adjust: 100%;
+  &.system{
+    @media (prefers-color-scheme: light) {
+      --color-theme: #3367d6;
+      --color-theme-r: 51;
+      --color-theme-g: 103;
+      --color-theme-b: 214;
+
+      --color-base: #ffffff;
+      --color-base-r: 255;
+      --color-base-g: 255;
+      --color-base-b: 255;
+
+      --color-main: #202124;
+      --color-main-r: 32;
+      --color-main-g: 33;
+      --color-main-b: 36;
+    }
+    @media (prefers-color-scheme: dark) {
+      --color-theme: #8ab4f8;
+      --color-theme-r: 138;
+      --color-theme-g: 180;
+      --color-theme-b: 248;
+
+      --color-base: #323639;
+      --color-base-r: 50;
+      --color-base-g: 54;
+      --color-base-b: 57;
+
+      --color-main: #f8f9fa;
+      --color-main-r: 248;
+      --color-main-g: 249;
+      --color-main-b: 250;
+    }
+  }
 }
-body {
+
+#app {
   background-color: $COLOR_BASE;
-  scroll-behavior: smooth;
-  margin: 0;
-  padding: 0;
   font-size: 18px;
   color: rgba(#{$COLOR_RGB_MAIN},.8);
   line-height: 1.6;
   font-weight: normal;
   font-family: Roboto, system-ui, sans-serif;
   font-smoothing: antialiased;
-  overscroll-behavior: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
 }
 
 *,
