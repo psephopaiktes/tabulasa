@@ -10,7 +10,7 @@ export default new Vuex.Store({
     memoData: "",
     chromeSync: {
       theme: "system",
-      gitHubToken: ""
+      gitHubToken: "806cc639bfb74ba20810d01c763d5093fdc214f5"
     }
   },
 

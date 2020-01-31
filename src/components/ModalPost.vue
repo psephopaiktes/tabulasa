@@ -9,26 +9,19 @@ div
     ul
 
       li: router-link(
-        to='/gist' target="_brank"
-        :class="{ noGitHubToken: disable }"
+        to='/gist'
       )
         <img svg-inline src="@/assets/gist.svg" />
         | GitHub Gist
-        //- router-link(
-        //-   to='/options#token'
-        //-   v-if="!$store.state.chromeSync.gitHubToken"
-        //- ) *need to GitHub token.
 
       li: a(
         :href="'https://twitter.com/intent/tweet?text='+encodeURI($store.state.memoData)"
-        target="_brank"
       )
         <img svg-inline src="@/assets/twitter.svg" />
         | Twitter
 
       li: a(
         :href="'https://mail.google.com/mail/?view=cm&body='+encodeURI($store.state.memoData)"
-        target="_brank"
       )
         <img svg-inline src="@/assets/gmail.svg" />
         | Gmail
@@ -42,14 +35,6 @@ import { Prop, Component, Vue } from "vue-property-decorator";
 export default class ModalPost extends Vue {
   // prop
   @Prop() show!: boolean;
-  // Computed
-  get noGitHubToken(): boolean {
-    if (this.$store.state.chromeSync.gitHubToken == "") {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }
 </script>
 
