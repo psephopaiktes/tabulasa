@@ -21,8 +21,9 @@ main.c-page
 
     h2#token GitHub Token
     input(type="text" placeholder="input your GitHub Token." v-model='token')
+    p  Required to post notes to <a href="https://gist.github.com/" target='_brank'>Gist</a>.
     details
-      summary How to get Token. Required to post notes to <a href="https://gist.github.com/" target='_brank'>Gist</a>.
+      summary How to get Token.
       div: ol
         li Signin or Signup to <a href="https://github.com/" target='_brank'>GitHub</a>.
         li Access "<a href="https://github.com/settings/tokens/new" target='_brank'>New personal access token</a>" page, and cofirm password.
@@ -88,7 +89,7 @@ details {
     font-size: 0.8em;
     cursor: pointer;
     display: block;
-    padding: 8px;
+    padding: 8px 12px;
   }
   div {
     padding: 0 12px 16px;

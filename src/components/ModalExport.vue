@@ -38,7 +38,7 @@ export default class ModalPost extends Vue {
     md: "",
     html: ""
   };
-  public fileName = "";
+  public fileName: string = "";
 
   // lifecycle hook
   public mounted() {
