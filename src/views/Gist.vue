@@ -3,6 +3,7 @@ main.c-page
 
   h1 Post to Gist
 
+
   #nonToken(v-if="!$store.state.chromeSync.gitHubToken")
     p GitHub Token is required.
     p Please set from <router-link to="/options">here</router-link>.
@@ -10,12 +11,10 @@ main.c-page
   #error(v-else-if="error")
     p: strong Error has occurred.
     p {{ error }}
-    P: router-link(to='/') close
 
   #complete(v-else-if="url")
     p Post complete.
     p: a(:href="url") Show in Gist.
-    p: router-link(to='/') close
 
   form#form(v-else @submit="post")
     label
@@ -26,6 +25,7 @@ main.c-page
         required
         @focus='$event.target.select()'
         placeholder='File name including extension...'
+        spellcheck='false'
         autofocus
       )
     label
@@ -37,9 +37,14 @@ main.c-page
       )
     label
       | content
-      textarea(required v-model="fileBody")
-    button(type='submit') POST
+      textarea(required v-model="fileBody" rows="10")
+    button.c-btn(type='submit')
+      <img svg-inline src="@/assets/icon/post.svg" class="gray" />
+      | POST
 
+  router-link.back(to='/')
+    <img svg-inline src="@/assets/icon/arrow_back.svg" class="gray" />
+    | back to editor
 </template>
 
 <script lang="ts">
@@ -117,21 +122,33 @@ export default class Gist extends Vue {
   label {
     display: block;
     margin-top: 32px;
+    font-size: 0.9em;
+    font-weight: 500;
   }
   input,
   textarea {
     display: block;
     width: 100%;
-    margin-top: 8px;
+    margin-top: 4px;
+    padding: 8px 12px;
     font-size: 1em;
+    border: 2px solid rgba(#{$COLOR_RGB_MAIN}, 0.4);
+    resize: vertical;
     &:focus {
       border-color: $COLOR_THEME;
       outline: none;
     }
   }
-  button {
-    display: block;
-    margin-top: 24px;
+  .c-btn {
+    margin-top: 32px;
+  }
+}
+.back {
+  display: block;
+  margin-top: 64px;
+  svg {
+    fill: $COLOR_THEME;
+    vertical-align: middle;
   }
 }
 </style>

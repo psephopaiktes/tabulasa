@@ -79,7 +79,7 @@ input[type="text"] {
   padding: 8px 12px;
   font-size: 1em;
   margin-top: 16px;
-  border: 2px solid rgba(#{$COLOR_RGB_MAIN}, 0.2);
+  border: 2px solid rgba(#{$COLOR_RGB_MAIN}, 0.4);
 }
 details {
   margin-top: 8px;
