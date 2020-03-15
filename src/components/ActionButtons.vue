@@ -48,7 +48,7 @@ import ModalPost from "@/components/ModalPost.vue";
     ModalPost
   }
 })
-export default class Nav extends Vue {
+export default class ActionButtons extends Vue {
   // data
   public showExportModal: boolean = false;
   public showPostModal: boolean = false;

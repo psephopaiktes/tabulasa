@@ -8,8 +8,15 @@ export default new Vuex.Store({
     extensionName: "Tabulasa",
     mode: "edit",
     memoData: "",
+    focus: false,
     chromeSync: {
       theme: "system",
+      wallpaper: {
+        background:
+          "url(https://source.unsplash.com/daily?cat&orientation=landscape)",
+        clockType: "analog",
+        clockColor: "#fff"
+      },
       gitHubToken: "806cc639bfb74ba20810d01c763d5093fdc214f5"
     }
   },
@@ -31,6 +38,9 @@ export default new Vuex.Store({
           state.mode = "edit";
           break;
       }
+    },
+    changeFocus(state, boolean) {
+      state.focus = boolean;
     },
     getOptions(state, options) {
       state.chromeSync = options;

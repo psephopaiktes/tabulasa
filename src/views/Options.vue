@@ -7,10 +7,10 @@ main.c-page
     //- p {{ $store.state.chromeSync }}
     //- button(@click="set") set
 
-    h2 Editor Theme
+    h2#theme Editor Theme
     ul
       li: label
-        input(v-model="theme" type='radio' name='theme' value='system')
+        input(v-model="theme" type='radio' name='theme' value='system' checked)
         | system
       li: label
         input(v-model="theme" type='radio' name='theme' value='light')
@@ -18,6 +18,36 @@ main.c-page
       li: label
         input(v-model="theme" type='radio' name='theme' value='dark')
         | dark
+
+    h2#wallpaper Wallpaper
+    p You can show Wallpaper when not the editor is focused.
+
+    h3  background image
+    ul
+      li: label
+        input(v-model="theme" type='radio' name='theme' value='system' checked)
+        | none
+      li: label
+        input(v-model="theme" type='radio' name='theme' value='light')
+        | daily cat
+      li: label
+        input(v-model="theme" type='radio' name='theme' value='dark')
+        | solid color
+      li: label
+        input(v-model="theme" type='radio' name='theme' value='dark')
+        | image url on web
+
+    h3 clock
+    ul
+      li: label
+        input(v-model="theme" type='radio' name='theme' value='system' checked)
+        | none
+      li: label
+        input(v-model="theme" type='radio' name='theme' value='light')
+        | analog
+      li: label
+        input(v-model="theme" type='radio' name='theme' value='dark')
+        | digit
 
     h2#token GitHub Token
     input(type="text" placeholder="input your GitHub Token." v-model='token')

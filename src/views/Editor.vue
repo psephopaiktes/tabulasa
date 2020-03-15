@@ -1,6 +1,7 @@
 <template lang="pug">
 main(:class='$store.state.mode')
 
+
   // Modals
   p#snackbar
     <img svg-inline src="@/assets/icon/check.svg" />
@@ -10,13 +11,16 @@ main(:class='$store.state.mode')
   output(v-html='compiledMarkdown')
   textarea#code(placeholder='Type here')
 
-  ActionButtons(v-if='focus')
+  ActionButtons(v-if='$store.state.focus')
+
+  Wallpaper(v-if='!$store.state.focus')
 
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ActionButtons from "@/components/ActionButtons.vue";
+import Wallpaper from "@/components/Wallpaper.vue";
 import welcome from "@/assets/welcome.ts";
 import vsCodeKeymap from "@/lib/keymap/vscode";
 const marked = require("marked");
@@ -30,15 +34,16 @@ require("codemirror/addon/display/placeholder.js");
 require("codemirror/addon/scroll/simplescrollbars.js");
 require("codemirror/mode/gfm/gfm.js");
 require("codemirror/keymap/sublime");
+// import firebase from "firebase";
+// import doc = firebase.doc; みたいなのもいけるはず
 
 @Component({
   components: {
-    ActionButtons
+    ActionButtons,
+    Wallpaper
   }
 })
 export default class Editor extends Vue {
-  // data
-  public focus: boolean = false;
   // computed
   public get compiledMarkdown(): string {
     return marked(this.$store.state.memoData, { breaks: true });
@@ -78,7 +83,7 @@ export default class Editor extends Vue {
     editor.setValue(this.$store.state.memoData);
     document.getElementsByClassName("CodeMirror")[0].classList.add("show");
     editor.on("focus", () => {
-      this.focus = true;
+      this.$store.commit("changeFocus", true);
     });
 
     // Indented wrapped line
