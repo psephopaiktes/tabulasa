@@ -63,8 +63,8 @@ export default class Wallpaper extends Vue {
   flex-direction: column;
   font-family: "SF Mono", "Roboto Mono", Menlo, monospace;
   letter-spacing: 0.1em;
+  color: var(--color-clock);
   #digit {
-    color: var(--color-clock);
     font-weight: 600;
     line-height: 1;
     font-size: 12vh;
@@ -93,9 +93,9 @@ export default class Wallpaper extends Vue {
     height: 30vh;
     position: relative;
     border-radius: 50%;
-    border: 0.6vh solid var(--color-clock);
+    border: 0.6vh solid currentColor;
     .minute {
-      background-color: var(--color-clock);
+      background-color: currentColor;
       border-radius: 0.3vh;
       height: 0.6vh;
       position: absolute;
@@ -106,7 +106,7 @@ export default class Wallpaper extends Vue {
       opacity: 0.8;
     }
     .hour {
-      background-color: var(--color-clock);
+      background-color: currentColor;
       border-radius: 0.6vh;
       height: 1.2vh;
       position: absolute;
