@@ -10,6 +10,7 @@ export default
 - VS CODE Keybinding.
 - Auto save note.
 - Support Darkmode.
+- Post to Gist or Twitter.
 
 
 ## Markdown Syntax Exapmles

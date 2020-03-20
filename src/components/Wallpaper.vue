@@ -1,18 +1,19 @@
 <template lang="pug">
 #wallpaper(
-  :style="`background: ${$store.state.chromeSync.wallpaper.background} 0% 0% / cover;`"
+  :class="{ show: loaded }"
+  :style="`background: ${backgroundValue};`"
 )
-  #digit(v-if="$store.state.chromeSync.wallpaper.clockType == 'digit'")
+  #digit(v-if="$store.state.chromeSync.clockType == 'digit'")
     time
       | {{ nowHour }}
       span.colon :
       | {{ nowMinute }}
 
-  #analog(v-else-if="$store.state.chromeSync.wallpaper.clockType == 'analog'")
+  #analog(v-else-if="$store.state.chromeSync.clockType == 'analog'")
     .hour(:style="`transform: rotate(${(nowHour * 360) / 12 + (nowMinute * 360) / 60 / 12 + 90}deg);`")
     .minute(:style="`transform: rotate(${(nowMinute * 360) / 60 + 90}deg);`")
 
-  #date {{ new Date().toLocaleDateString() }}
+  #date(v-if="$store.state.chromeSync.clockType != 'none'") {{ new Date().toLocaleDateString() }}
 </template>
 
 <script lang="ts">
@@ -23,10 +24,13 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class Wallpaper extends Vue {
   // data
+  public backgroundValue: string = "none";
   public showExportModal: boolean = false;
   public showPostModal: boolean = false;
   public nowHour: number = new Date().getHours();
   public nowMinute: number = new Date().getMinutes();
+  public loaded: boolean = false;
+
   // lifecycle hook
   public beforeCreate() {
     setInterval(() => {
@@ -34,14 +38,36 @@ export default class Wallpaper extends Vue {
       this.nowMinute = new Date().getMinutes();
     }, 1000);
   }
+  public created() {
+    switch (this.$store.state.chromeSync.backgroundType) {
+      case "cat":
+        this.backgroundValue =
+          "url(https://source.unsplash.com/daily?cat&orientation=landscape) 0% 0% / cover";
+        break;
+
+      case "color":
+        this.backgroundValue = this.$store.state.chromeSync.backgroundColor;
+        break;
+
+      case "url":
+        this.backgroundValue = `url(${this.$store.state.chromeSync.backgroundUrl}) 0% 0% / cover`;
+        break;
+
+      default:
+        break;
+    }
+  }
   public mounted() {
     const elm = document.getElementById("wallpaper");
     if (elm) {
       elm.style.setProperty(
         "--color-clock",
-        this.$store.state.chromeSync.wallpaper.clockColor
+        this.$store.state.chromeSync.clockColor
       );
     }
+    window.addEventListener("load", () => {
+      this.loaded = true;
+    });
   }
 }
 </script>
@@ -64,6 +90,11 @@ export default class Wallpaper extends Vue {
   font-family: "SF Mono", "Roboto Mono", Menlo, monospace;
   letter-spacing: 0.1em;
   color: var(--color-clock);
+  opacity: 0;
+  transition: $TRANSITION;
+  &.show {
+    opacity: 1;
+  }
   #digit {
     font-weight: 600;
     line-height: 1;

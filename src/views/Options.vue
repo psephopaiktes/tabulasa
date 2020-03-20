@@ -3,14 +3,10 @@ main.c-page
 
     h1 Options
 
-    //- h2 current vuex values
-    //- p {{ $store.state.chromeSync }}
-    //- button(@click="set") set
-
     h2#theme Editor Theme
     ul
       li: label
-        input(v-model="theme" type='radio' name='theme' value='system' checked)
+        input(v-model="theme" type='radio' name='theme' value='system')
         | system
       li: label
         input(v-model="theme" type='radio' name='theme' value='light')
@@ -22,35 +18,43 @@ main.c-page
     h2#wallpaper Wallpaper
     p You can show Wallpaper when not the editor is focused.
 
-    h3  background image
+    h3  Background
     ul
       li: label
-        input(v-model="theme" type='radio' name='theme' value='system' checked)
+        input(v-model="backgroundType" type='radio' name='backgroundType' value='none')
         | none
       li: label
-        input(v-model="theme" type='radio' name='theme' value='light')
+        input(v-model="backgroundType" type='radio' name='backgroundType' value='cat')
         | daily cat
-      li: label
-        input(v-model="theme" type='radio' name='theme' value='dark')
-        | solid color
-      li: label
-        input(v-model="theme" type='radio' name='theme' value='dark')
-        | image url on web
+      li
+        label
+          input(v-model="backgroundType" type='radio' name='backgroundType' value='color')
+          | solid color&nbsp;&nbsp;
+          input(v-model="backgroundColor" type='color')
+      li
+        label
+          input(v-model="backgroundType" type='radio' name='backgroundType' value='url')
+          | custom image on web
+        input.inputUrl(v-model="backgroundUrl" type='text' v-if="$store.state.chromeSync.backgroundType=='url'" placeholder="input image url")
 
-    h3 clock
+    h3 Clock
     ul
       li: label
-        input(v-model="theme" type='radio' name='theme' value='system' checked)
+        input(v-model="clockType" type='radio' name='clockType' value='none')
         | none
       li: label
-        input(v-model="theme" type='radio' name='theme' value='light')
+        input(v-model="clockType" type='radio' name='clockType' value='analog')
         | analog
       li: label
-        input(v-model="theme" type='radio' name='theme' value='dark')
+        input(v-model="clockType" type='radio' name='clockType' value='digit')
         | digit
 
+    section(v-if="$store.state.chromeSync.clockType!='none'")
+      h3 Clock color
+      p: input(v-model='clockColor' type='color')
+
     h2#token GitHub Token
-    input(type="text" placeholder="input your GitHub Token." v-model='token')
+    input.inputToken(type="text" placeholder="input your GitHub Token." v-model='token')
     p  Required to post notes to <a href="https://gist.github.com/" target='_brank'>Gist</a>.
     details
       summary How to get Token.
@@ -71,19 +75,45 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Customize extends Vue {
   // lifecycle hook
   public beforeCreate() {
-    window.document.title = "Customize | " + this.$store.state.extensionName;
+    window.document.title = "Options | " + this.$store.state.extensionName;
   }
 
-  // methods
-  public set() {
-    this.$store.commit("setOptions", { key: "theme", val: "dark" });
-  }
   // Computed
   get theme(): string {
     return this.$store.state.chromeSync.theme;
   }
   set theme(value) {
     this.$store.commit("setOptions", { key: "theme", val: value });
+  }
+  get backgroundType(): string {
+    return this.$store.state.chromeSync.backgroundType;
+  }
+  set backgroundType(value) {
+    this.$store.commit("setOptions", { key: "backgroundType", val: value });
+  }
+  get backgroundColor(): string {
+    return this.$store.state.chromeSync.backgroundColor;
+  }
+  set backgroundColor(value) {
+    this.$store.commit("setOptions", { key: "backgroundColor", val: value });
+  }
+  get backgroundUrl(): string {
+    return this.$store.state.chromeSync.backgroundUrl;
+  }
+  set backgroundUrl(value) {
+    this.$store.commit("setOptions", { key: "backgroundUrl", val: value });
+  }
+  get clockType(): string {
+    return this.$store.state.chromeSync.clockType;
+  }
+  set clockType(value) {
+    this.$store.commit("setOptions", { key: "clockType", val: value });
+  }
+  get clockColor(): string {
+    return this.$store.state.chromeSync.clockColor;
+  }
+  set clockColor(value) {
+    this.$store.commit("setOptions", { key: "clockColor", val: value });
   }
   get token(): string {
     return this.$store.state.chromeSync.gitHubToken;
@@ -108,8 +138,16 @@ input[type="text"] {
   width: 480px;
   padding: 8px 12px;
   font-size: 1em;
-  margin-top: 16px;
   border: 2px solid rgba(#{$COLOR_RGB_MAIN}, 0.4);
+  &::placeholder {
+    opacity: 0.5;
+  }
+}
+.inputUrl {
+  margin: 4px 8px 0;
+}
+.inputToken {
+  margin-top: 12px;
 }
 details {
   margin-top: 8px;
