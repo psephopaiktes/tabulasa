@@ -18,7 +18,6 @@ export default class App extends Vue {
   public beforeCreate() {
     chrome.storage.sync.get(options => {
       this.$store.commit("getOptions", options);
-      window.console.log("Tabulasa chromeSync:" + JSON.stringify(options));
     });
   }
   public mounted() {

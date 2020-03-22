@@ -1,6 +1,5 @@
 <template lang="pug">
-main(:class='$store.state.mode')
-
+main#editor(:class="[$store.state.mode, { show: loaded }]")
 
   // Modals
   p#snackbar
@@ -44,6 +43,8 @@ require("codemirror/keymap/sublime");
   }
 })
 export default class Editor extends Vue {
+  // data
+  public loaded: boolean = false;
   // computed
   public get compiledMarkdown(): string {
     return marked(this.$store.state.memoData, { breaks: true });
@@ -132,6 +133,15 @@ export default class Editor extends Vue {
         }
       }
     });
+    // Wallpaper読み込み完了処理
+    window.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        this.loaded = true;
+      }, 2000);
+    });
+    window.addEventListener("load", () => {
+      this.loaded = true;
+    });
   }
 }
 </script>
@@ -140,6 +150,16 @@ export default class Editor extends Vue {
 @import "@/scss/const.scss";
 @import "@/scss/object/previewHTML.scss";
 @import "@/scss/object/codeMirror.scss";
+
+#editor {
+  opacity: 0;
+  transform: translateY(1vh);
+  transition: 0.1s ease-out;
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 #snackbar {
   position: fixed;

@@ -1,8 +1,6 @@
 <template lang="pug">
-#wallpaper(
-  :class="{ show: loaded }"
-  :style="`background: ${backgroundValue};`"
-)
+#wallpaper(:style="`background: ${backgroundValue};`")
+
   #digit(v-if="$store.state.chromeSync.clockType == 'digit'")
     time
       | {{ nowHour }}
@@ -29,7 +27,6 @@ export default class Wallpaper extends Vue {
   public showPostModal: boolean = false;
   public nowHour: number = new Date().getHours();
   public nowMinute: number = new Date().getMinutes();
-  public loaded: boolean = false;
 
   // lifecycle hook
   public beforeCreate() {
@@ -65,9 +62,6 @@ export default class Wallpaper extends Vue {
         this.$store.state.chromeSync.clockColor
       );
     }
-    window.addEventListener("load", () => {
-      this.loaded = true;
-    });
   }
 }
 </script>
@@ -90,13 +84,8 @@ export default class Wallpaper extends Vue {
   font-family: "SF Mono", "Roboto Mono", Menlo, monospace;
   letter-spacing: 0.1em;
   color: var(--color-clock);
-  opacity: 0;
-  transition: $TRANSITION;
-  &.show {
-    opacity: 1;
-  }
+  font-weight: 600;
   #digit {
-    font-weight: 600;
     line-height: 1;
     font-size: 12vh;
     margin-top: -5vh;
@@ -152,7 +141,7 @@ export default class Wallpaper extends Vue {
     bottom: 5vh;
     left: calc(50vw - 50%);
     width: 100vw;
-    font-size: 1.5vh;
+    font-size: 2vh;
     text-align: center;
   }
 }
