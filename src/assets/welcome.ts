@@ -10,7 +10,7 @@ export default
 - VS CODE Keybinding.
 - Auto save note.
 - Support Darkmode.
-
+- Post to Gist or Twitter.
 
 ## Markdown Syntax Exapmles
 You can use \`Markdown\` syntax.
@@ -19,6 +19,13 @@ You can use \`Markdown\` syntax.
 
 - Bullet List.
 - **bold**, *italic*, ~~strike~~,
-    - [x] task
-    - [ ] task
+- [x] task
+- [ ] task
+
+## Customize Tabulasa
+- Show Wallpaper, Clock.
+- Change font on the editor.
+
+You can customize Tabulasa on [option page.](/options)
+
 `;
