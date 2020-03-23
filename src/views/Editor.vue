@@ -134,14 +134,12 @@ export default class Editor extends Vue {
       }
     });
     // Wallpaper読み込み完了処理
-    window.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
-        this.loaded = true;
-      }, 2000);
-    });
     window.addEventListener("load", () => {
       this.loaded = true;
     });
+    setTimeout(() => {
+      this.loaded = true;
+    }, 1000);
   }
 }
 </script>
