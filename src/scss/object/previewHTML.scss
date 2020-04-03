@@ -8,6 +8,9 @@ output {
     "ヒラギノ角ゴ ProN", "游ゴシック", "Yu Gothic", YuGothic, Meiryo, "メイリオ",
     Roboto, "Helvetica Neue", system-ui, "Helvetica", "Arial", sans-serif;
   line-height: 1.5;
+  *:first-child {
+    margin-top: 0;
+  }
   h1{
     margin-top: 2em;
     font-size: 3em;

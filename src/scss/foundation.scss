@@ -118,6 +118,25 @@ body {
   overflow: scroll;
 }
 
+
+
+@media print {
+  #app {
+    height: auto;
+    overflow: auto;
+    position: static;
+  }
+  #editor {
+    overflow: auto;
+  }
+  #app > *:not(main), #app > main > *:not(output) {
+    display: none;
+  }
+  #app > main > output {
+    display: block;
+  }
+}
+
 *,
 *::before,
 *::after {

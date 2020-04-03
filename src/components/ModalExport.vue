@@ -19,6 +19,8 @@ div
         <img svg-inline src="@/assets/icon/file_md.svg" />.md
       li: a(:href='files.html' :download="fileName + '.html'")
         <img svg-inline src="@/assets/icon/file_html.svg" />.html
+      li: button(@click='callBrowserPrint')
+        <img svg-inline src="@/assets/icon/file_pdf.svg" />.pdf (print)
 
 </template>
 
@@ -39,6 +41,12 @@ export default class ModalPost extends Vue {
     html: ""
   };
   public fileName: string = "";
+
+  // method
+  public callBrowserPrint() {
+    // this.$store.state.mode = "preview";
+    window.print();
+  }
 
   // lifecycle hook
   public mounted() {
@@ -131,7 +139,8 @@ section {
     li + li {
       margin-left: 16px;
     }
-    a {
+    a,
+    button {
       display: block;
       text-align: center;
       text-decoration: none;

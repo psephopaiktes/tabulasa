@@ -8,7 +8,10 @@ main#editor(:class="[$store.state.mode, { show: loaded }]")
 
   // Content
   output(v-html='compiledMarkdown')
-  textarea#code(placeholder='Type here')
+  div(
+    :style="`font-family: ${$store.state.chromeSync.font}`"
+  )
+    textarea#code(placeholder='Type here')
 
   ActionButtons(v-if='$store.state.focus')
 
@@ -23,6 +26,7 @@ import Wallpaper from "@/components/Wallpaper.vue";
 import welcome from "@/assets/welcome.ts";
 import vsCodeKeymap from "@/lib/keymap/vscode";
 const marked = require("marked");
+const emoji = require("node-emoji");
 const CodeMirror = require("codemirror");
 require("codemirror/addon/dialog/dialog.js");
 require("codemirror/addon/search/search.js");
@@ -47,7 +51,8 @@ export default class Editor extends Vue {
   public loaded: boolean = false;
   // computed
   public get compiledMarkdown(): string {
-    return marked(this.$store.state.memoData, { breaks: true });
+    const text = emoji.emojify(this.$store.state.memoData);
+    return marked(text, { breaks: true });
   }
   // lifecycle hook
   public beforeCreate() {
@@ -151,11 +156,11 @@ export default class Editor extends Vue {
 
 #editor {
   opacity: 0;
-  transform: translateY(1vh);
   transition: 0.1s ease-out;
+  overflow: hidden;
+  min-height: 100vh;
   &.show {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -208,8 +213,6 @@ output {
 // BASICS
 .CodeMirror {
   font-size: 20px;
-  font-family: RictyDiminishedDiscord, "Ricty Diminished", Ricty, Menlo,
-    monospace;
   color: rgba(#{$COLOR_RGB_MAIN}, 0.8);
   line-height: 1.5;
   text-decoration-skip-ink: none;
@@ -232,13 +235,16 @@ output {
     content: "";
     display: block;
     width: 100%;
+    min-height: 64px;
     height: 10vh;
     position: absolute;
     bottom: 0;
     left: 0;
     background: linear-gradient(
-      rgba(#{$COLOR_RGB_BASE}, 0),
-      rgba(#{$COLOR_RGB_BASE}, 1)
+      to top,
+      rgba(#{$COLOR_RGB_BASE}, 1),
+      rgba(#{$COLOR_RGB_BASE}, 1) 24px,
+      rgba(#{$COLOR_RGB_BASE}, 0)
     );
     z-index: 2;
   }

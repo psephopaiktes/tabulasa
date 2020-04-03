@@ -43,8 +43,6 @@ nav
         <img svg-inline src="@/assets/icon/dino.svg" class="gray" />
         | Dino
 
-    p#copy: small: a(href="https://twitter.com/psephopaiktes") &copy; Akira HIRATA
-
 </template>
 
 <script lang="ts">

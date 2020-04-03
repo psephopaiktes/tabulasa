@@ -3,9 +3,9 @@
 
   #digit(v-if="$store.state.chromeSync.clockType == 'digit'")
     time
-      | {{ nowHour }}
+      | {{ ( '00' + nowHour.toString() ).slice(-2) }}
       span.colon :
-      | {{ nowMinute }}
+      | {{ ( '00' + nowMinute.toString() ).slice(-2) }}
 
   #analog(v-else-if="$store.state.chromeSync.clockType == 'analog'")
     .hour(:style="`transform: rotate(${(nowHour * 360) / 12 + (nowMinute * 360) / 60 / 12 + 90}deg);`")
@@ -39,7 +39,7 @@ export default class Wallpaper extends Vue {
     switch (this.$store.state.chromeSync.backgroundType) {
       case "cat":
         this.backgroundValue =
-          "url(https://source.unsplash.com/daily?cat&orientation=landscape) 0% 0% / cover";
+          "url(https://source.unsplash.com/daily?cat&orientation=landscape) center / cover";
         break;
 
       case "color":

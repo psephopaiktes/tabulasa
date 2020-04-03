@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default
 `
-# Welcome Tabulasa
+# Welcome Tabulasa :tada:
 **Now, You can edit this area!**
 
 

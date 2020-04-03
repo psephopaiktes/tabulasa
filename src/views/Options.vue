@@ -15,6 +15,10 @@ main.c-page
         input(v-model="theme" type='radio' name='theme' value='dark')
         | dark
 
+    h2#font Editor font
+    p Input your favorite font-family (as CSS).
+    input.text(type="text" placeholder="Enter in CSS format." v-model='font')
+
     h2#wallpaper Wallpaper
     p You can show Wallpaper when not the editor is focused.
 
@@ -54,7 +58,7 @@ main.c-page
       p: input(v-model='clockColor' type='color')
 
     h2#token GitHub Token
-    input.inputToken(type="text" placeholder="input your GitHub Token." v-model='token')
+    input.text(type="text" placeholder="input your GitHub Token." v-model='token')
     p  Required to post notes to <a href="https://gist.github.com/" target='_brank'>Gist</a>.
     details
       summary How to get Token.
@@ -84,6 +88,12 @@ export default class Customize extends Vue {
   }
   set theme(value) {
     this.$store.commit("setOptions", { key: "theme", val: value });
+  }
+  get font(): string {
+    return this.$store.state.chromeSync.font;
+  }
+  set font(value) {
+    this.$store.commit("setOptions", { key: "font", val: value });
   }
   get backgroundType(): string {
     return this.$store.state.chromeSync.backgroundType;
@@ -135,7 +145,7 @@ input[type="radio"] {
 }
 input[type="text"] {
   display: block;
-  width: 480px;
+  width: 560px;
   padding: 8px 12px;
   font-size: 1em;
   border: 2px solid rgba(#{$COLOR_RGB_MAIN}, 0.4);
@@ -146,7 +156,7 @@ input[type="text"] {
 .inputUrl {
   margin: 4px 8px 0;
 }
-.inputToken {
+.text {
   margin-top: 12px;
 }
 details {

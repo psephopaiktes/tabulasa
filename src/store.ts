@@ -11,6 +11,8 @@ export default new Vuex.Store({
     focus: false,
     chromeSync: {
       theme: "system",
+      font:
+        'RictyDiminishedDiscord, "Ricty Diminished", Ricty, Menlo, monospace',
       backgroundType: "none",
       backgroundColor: "#cccccc",
       backgroundUrl:
