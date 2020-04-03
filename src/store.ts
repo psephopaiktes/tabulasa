@@ -19,7 +19,7 @@ export default new Vuex.Store({
         "https://source.unsplash.com/daily?cat&orientation=landscape",
       clockType: "none",
       clockColor: "#ffffff",
-      gitHubToken: "806cc639bfb74ba20810d01c763d5093fdc214f5"
+      gitHubToken: ""
     }
   },
 
