@@ -1,9 +1,7 @@
-# # Tabulasa
-- Chrome Extension.
-- Ultimately simple new tab Markdown editor.
-- [Web Page](https://psephopaiktes.github.io/tabulasa/).
+# WXT + Svelte
 
-## ## Start Dev
-1. `$ npm i`
-2. `$ npm start`
-3. Access [http://localhost:8080/](http://localhost:8080/)
+This template should help get you started developing with Svelte in WXT.
+
+## Recommended IDE Setup
+
+[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
