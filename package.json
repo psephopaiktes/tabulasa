@@ -26,5 +26,8 @@
     "tslib": "^2.8.1",
     "typescript": "^5.6.3",
     "wxt": "^0.19.13"
+  },
+  "dependencies": {
+    "svg-mask-icon": "^2.1.0"
   }
 }

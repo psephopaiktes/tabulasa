@@ -1,9 +1,10 @@
 <script lang="ts">
-import Layout from "@/components/Layout.svelte";
+import Layout from "@/lib/Layout.svelte";
 </script>
 
 <Layout>
   <h1># Options</h1>
+  <svg-icon src="/img/icon/dino.svg" />
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -13,3 +14,9 @@ import Layout from "@/components/Layout.svelte";
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   </p>
 </Layout>
+
+<style>
+  svg-icon {
+    color: pink;
+  }
+</style>
