@@ -29,7 +29,7 @@ export default {
   default_locale,
   locales,
 
-  t(translations: Record<string, string>): string {
+  t(translations: Record<string, string | undefined>): string {
     if (!(default_locale in translations)) {
       throw new Error(
         `The default locale '${default_locale}' is required in the translations`,
@@ -38,6 +38,6 @@ export default {
 
     const userLang =
       browser.i18n.getUILanguage().toLowerCase() || default_locale;
-    return translations[userLang] || translations[default_locale];
+    return translations[userLang] ?? translations[default_locale] ?? "";
   },
 };

@@ -1,7 +1,7 @@
 <script lang="ts">
 import "@/style/index.css";
 import "svg-mask-icon";
-import Nav from "@/lib/Nav.svelte";
+import Nav from "@/lib/Nav/Index.svelte";
 
 let { title = "Tabulasa", children } = $props();
 </script>
@@ -12,7 +12,7 @@ let { title = "Tabulasa", children } = $props();
 
 <Nav />
 
-<main>
+<main class="l-main">
   {@render children()}
 </main>
 
