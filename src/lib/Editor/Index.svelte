@@ -1,46 +1,67 @@
 <script lang="ts">
+  import { store } from "@/lib/store.svelte";
   import { onDestroy, onMount } from "svelte";
   import { storage } from "wxt/storage";
 
   const initialMemo = "this is initial value";
-  let memo = $state();
+  let editor: HTMLTextAreaElement;
 
   // 初回データ取得
   onMount(async () => {
     const data = await storage.getItem("local:memo");
-    if (data !== undefined) {
-      memo = data;
+    if (data !== undefined && typeof data === "string") {
+      store.memo = data;
     } else {
       await storage.setItem("local:memo", initialMemo);
-      memo = initialMemo;
+      store.memo = initialMemo;
     }
   });
 
   // memoが更新されたらStorageへ保存
   let isStorageUpdate = false; // Storageからの更新フラグ
   let isMemoUpdate = false; // memoの更新フラグ
-  $effect(() => {
-    if (!isStorageUpdate && memo !== undefined) {
+  function edit(): void {
+    if (!isStorageUpdate) {
       isMemoUpdate = true;
-      storage.setItem("local:memo", memo).finally(() => {
+      storage.setItem("local:memo", store.memo).finally(() => {
         isMemoUpdate = false;
       });
     }
-  });
+  }
 
-  // 他のタブと同期する
+  // storageを監視して他のタブと同期する
   const unwatch = storage.watch<string>("local:memo", (newMemo, oldMemo) => {
-    if (!isMemoUpdate && newMemo !== undefined && newMemo !== memo) {
+    if (
+      !isMemoUpdate &&
+      newMemo !== undefined &&
+      newMemo !== store.memo &&
+      typeof newMemo === "string"
+    ) {
       isStorageUpdate = true;
-      memo = newMemo;
+      store.memo = newMemo;
       isStorageUpdate = false;
     }
   });
-
   // コンポーネントが破棄されたら監視を解除
   onDestroy(() => {
     unwatch();
   });
 </script>
 
-<textarea bind:value={memo} placeholder="ここにメモを書く..."></textarea>
+<textarea
+  bind:this={editor}
+  bind:value={store.memo}
+  oninput={edit}
+  placeholder="ここにメモを書く..."
+  rows="10"
+></textarea>
+
+<style>
+  :global(main) {
+    text-align: center;
+  }
+  textarea {
+    margin-top: 120px;
+    border: 2px solid #ccc;
+  }
+</style>
