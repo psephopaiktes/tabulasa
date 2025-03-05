@@ -5,6 +5,7 @@ const manifest = {
   description: "__MSG_extDescription__",
   default_locale: "en",
   homepage_url: "https://github.com/psephopaiktes/tabulasa",
+  permissions: ["tabs", "storage"],
   commands: {
     _execute_action: {
       suggested_key: {
@@ -12,7 +13,6 @@ const manifest = {
       },
     },
   },
-  permissions: ["tabs", "storage"],
   browser_specific_settings: {
     gecko: {
       id: "tabulasa@hira.page",

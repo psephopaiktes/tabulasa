@@ -1,7 +1,29 @@
-# WXT + Svelte
+# Tabulasa
 
-This template should help get you started developing with Svelte in WXT.
+![Hero Image](design/cover.png)
 
-## Recommended IDE Setup
+TODO
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+
+
+## Get the Extension
+* [Chrome Web Store](TODO)
+* [Add-ons for Firefox](TODO)
+<!-- * [Edge Add-ons](TODO) -->
+
+
+
+## Development
+need a Node.js environment.
+```zsh
+npm i
+npm start
+```
+
+
+
+## For Firefox review team
+To review the source code and build it, please run the following command:
+```zsh
+npm run build:firefox
+```

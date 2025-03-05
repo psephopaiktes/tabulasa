@@ -2,17 +2,18 @@
   import i18n from "@/lib/i18n";
   import { browserMenu } from "./browserMenu";
 
+  let { current = "" } = $props();
+
+  let drawer: HTMLDialogElement;
   const browserName =
     import.meta.env.BROWSER.charAt(0).toUpperCase() +
     import.meta.env.BROWSER.slice(1);
-  let drawer: HTMLDialogElement;
 
-  // Methods TODO
-  function openBrowserPage(event: MouseEvent, url: string) {
+  function openBrowserPage(url: string) {
     try {
       browser.tabs.update({ url });
     } catch (error) {
-      alert("This feature can't be used in Demo.");
+      console.error("This feature can't be used in this environment.");
     }
   }
 
@@ -26,8 +27,7 @@
 
   function backdropClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    // TOOD backdroopだけにdけいないか
-    console.dir(target);
+    console.log(target);
     if (target === drawer) {
       closeDrawer();
     }
@@ -48,18 +48,6 @@
   </button>
 
   <dialog bind:this={drawer} onclick={backdropClick}>
-    <button
-      class="l-navButton"
-      onclick={closeDrawer}
-      tabindex="2"
-      title={i18n.t({ en: "Close", jp: "閉じる" })}
-    >
-      <svg-icon
-        src="/img/icon/close.svg"
-        alt={i18n.t({ en: "Close", jp: "閉じる" })}
-      />
-    </button>
-
     <h1>
       <svg-icon src="/img/logo.svg" alt="Tabulasa" />
     </h1>
@@ -68,50 +56,66 @@
 
     <ul>
       <li>
-        <a id="focusTarget" href="/">
-          <!-- on:click|preventDefault={() => {
+        <a
+          href="/newtab.html"
+          class:current={current === "editor"}
+          inert={current === "editor"}
+          onclick={(e) => {
+            e.preventDefault();
             closeDrawer();
-            window.location.href = "/";
-          }} -->
+            location.href = browser.runtime.getURL("/newtab.html");
+          }}
+        >
           <svg-icon src="/img/icon/editor.svg" alt="editor" />
           Editor
         </a>
       </li>
       <li>
-        <a href="/options">
-          <!-- on:click|preventDefault={() => {
+        <a
+          href="/options.html"
+          class:current={current === "options"}
+          inert={current === "options"}
+          onclick={(e) => {
+            e.preventDefault();
             closeDrawer();
-            window.location.href = "/options";
-          }} -->
+            location.href = browser.runtime.getURL("/options.html");
+          }}
+        >
           <svg-icon src="/img/icon/customize.svg" alt="customize" />
           Options
         </a>
       </li>
     </ul>
 
-    <hr />
+    {#if import.meta.env.CHROME}
+      <hr />
 
-    <h3>{browserName}</h3>
-    <ul>
-      {#each browserMenu as item}
-        <li>
-          <a href={item.url} onclick={(e) => openBrowserPage(e, item.url)}>
-            <svg-icon
-              src={`/img/icon/${item.id}.svg`}
-              alt={i18n.t(item.label)}
-            />
-            {i18n.t(item.label)}
-          </a>
-        </li>
-      {/each}
-    </ul>
+      <h3>{browserName}</h3>
+      <ul>
+        {#each browserMenu as item}
+          <li>
+            <a href={item.url} onclick={() => openBrowserPage(item.url)}>
+              <svg-icon
+                src={`/img/icon/${item.id}.svg`}
+                alt={i18n.t(item.label)}
+              />
+              {i18n.t(item.label)}
+            </a>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+
+    <footer>
+      <a href="https://hira.page" target="_blank"> © Akira HIRATA </a>
+    </footer>
   </dialog>
 </nav>
 
 <style>
-  button {
+  nav > button {
     font-size: 32px;
-    opacity: 0.6;
+    opacity: 0.4;
     &:hover {
       opacity: 0.8;
     }
@@ -137,22 +141,23 @@
     &[open] {
       translate: 0 0;
       box-shadow:
-        0 0 32px rgba(0 0 0 / 0.1),
-        0 0 64px rgba(0 0 0 / 0.1);
+        0 0 32px rgb(0 0 0 / 0.1),
+        0 0 64px rgb(0 0 0 / 0.1);
       @starting-style {
         translate: calc(-1 * var(--w)) 0;
       }
     }
     &::backdrop {
-      background-color: rgba(0 0 0 / 0.1);
+      background-color: rgb(0 0 0 / 0.1);
       backdrop-filter: blur(2px);
     }
 
     h1 {
       margin: 0;
       color: var(--color-theme);
+      text-align: center;
+      padding: 48px 0 40px;
       svg-icon {
-        margin: 64px 0 32px 56px;
         width: 140px;
         height: auto;
         aspect-ratio: 6;
@@ -188,9 +193,8 @@
         &:hover {
           background: color-mix(in srgb, var(--color-theme) 10%, transparent);
         }
-        &.router-link-exact-active {
-          /* TODO */
-          background: color-mix(in srgb, var(--color-main) 20%, transparent);
+        &.current {
+          background: color-mix(in srgb, var(--color-theme) 20%, transparent);
           color: var(--color-theme);
         }
       }
@@ -206,6 +210,23 @@
       a {
         text-decoration: none;
         opacity: 0.4;
+      }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px;
+      text-align: center;
+      a {
+        opacity: 0.6;
+        font-size: 0.8em;
+        color: var(--color-theme);
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
   }

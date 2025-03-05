@@ -4,6 +4,9 @@
   "private": false,
   "version": "4.0.0",
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "npm run dev",
     "biome": "biome check --write",

@@ -1,8 +1,8 @@
 <script lang="ts">
-import Layout from "@/lib/Layout.svelte";
+  import Layout from "@/lib/Layout.svelte";
 </script>
 
-<Layout>
+<Layout current="options">
   <h1># Options</h1>
   <svg-icon src="/img/icon/dino.svg" />
   <p>

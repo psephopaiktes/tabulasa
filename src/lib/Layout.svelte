@@ -1,16 +1,16 @@
 <script lang="ts">
-import "@/style/index.css";
-import "svg-mask-icon";
-import Nav from "@/lib/Nav/Index.svelte";
+  import "@/style/index.css";
+  import "svg-mask-icon";
+  import Nav from "@/lib/Nav/Index.svelte";
 
-let { title = "Tabulasa", children } = $props();
+  let { title = "Tabulasa", current = "", children } = $props();
 </script>
 
 <svelte:head>
   <title>{title}</title>
 </svelte:head>
 
-<Nav />
+<Nav {current} />
 
 <main class="l-main">
   {@render children()}
