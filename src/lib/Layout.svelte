@@ -16,9 +16,5 @@
   {@render children()}
 </main>
 
-<footer>
-  <p>Footer</p>
-</footer>
-
 <style>
 </style>

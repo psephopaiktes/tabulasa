@@ -115,9 +115,11 @@
 <style>
   nav > button {
     font-size: 32px;
-    opacity: 0.4;
+    background-color: var(--color-base);
+    border-radius: 8px;
+    line-height: 100%;
     &:hover {
-      opacity: 0.8;
+      scale: 1.1;
     }
   }
 
