@@ -18,31 +18,16 @@
   });
 
   // memoが更新されたらStorageへ保存
-  let isStorageUpdate = false; // Storageからの更新フラグ
-  let isMemoUpdate = false; // memoの更新フラグ
   function edit(): void {
-    if (!isStorageUpdate) {
-      isMemoUpdate = true;
-      storage.setItem("local:memo", store.memo).finally(() => {
-        isMemoUpdate = false;
-      });
-    }
+    storage.setItem("local:memo", store.memo);
   }
 
   // storageを監視して他のタブと同期する
-  const unwatch = storage.watch<string>("local:memo", (newMemo, oldMemo) => {
-    if (
-      !isMemoUpdate &&
-      newMemo !== undefined &&
-      newMemo !== store.memo &&
-      typeof newMemo === "string"
-    ) {
-      isStorageUpdate = true;
+  const unwatch = storage.watch<string>("local:memo", (newMemo) => {
+    if (newMemo !== store.memo && typeof newMemo === "string") {
       store.memo = newMemo;
-      isStorageUpdate = false;
     }
   });
-  // コンポーネントが破棄されたら監視を解除
   onDestroy(() => {
     unwatch();
   });

@@ -1,6 +1,12 @@
 <script lang="ts">
   import Layout from "@/lib/Layout.svelte";
   import i18n from "@/lib/i18n";
+  import { store } from "@/lib/store.svelte";
+
+  $effect(() => {
+    storage.setItem("sync:options", store.options);
+    document.documentElement.dataset.theme = store.options.theme;
+  });
 </script>
 
 <Layout
@@ -16,14 +22,42 @@
 
   <h2>Editor</h2>
   <h3>Theme</h3>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </p>
+  <ul>
+    <li>
+      <label>
+        <input
+          bind:group={store.options.theme}
+          type="radio"
+          name="theme"
+          value="system"
+        />
+        {i18n.t({ en: "System", jp: "システム" })}
+      </label>
+    </li>
+    <li>
+      <label>
+        <input
+          bind:group={store.options.theme}
+          type="radio"
+          name="theme"
+          value="light"
+        />
+        {i18n.t({ en: "Light", jp: "ライト" })}
+      </label>
+    </li>
+    <li>
+      <label>
+        <input
+          bind:group={store.options.theme}
+          type="radio"
+          name="theme"
+          value="dark"
+        />
+        {i18n.t({ en: "Dark", jp: "ダーク" })}
+      </label>
+    </li>
+  </ul>
+
   <h3>Font</h3>
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
