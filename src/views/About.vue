@@ -6,25 +6,31 @@ main.c-page
   h2 URLs
   ul
     li
-      | contact:
-      a(href='https://twitter.com/psephopaiktes', target='_brank')
-        | @psephopaiktes.
+      | Extension Page:&nbsp;
+      a(href='https://chrome.google.com/webstore/detail/tabulasa/ibjmfknkajjffbkhjmhaecphbhfknakl', target='_brank')
+        | Chrome Web Store.
     li
-      | source:
+      | Author's Website:&nbsp;
+      a(href='https://hira.page', target='_brank')
+        | WEBA.
+    li
+      | source code:&nbsp;
       a(href='https://github.com/psephopaiktes/tabulasa', target='_brank')
         | GitHub.
 
   h2 Share Tabulasa
   ul
-    li: a(href='https://twitter.com/intent/tweet?url=https://psephopaiktes.github.io/tabulasa/', target='_brank')
-      | Twitter
+    li: a(href='https://x.com/intent/post?url=https://psephopaiktes.github.io/tabulasa/', target='_brank')
+      | Post to X
     li: a(href='https://www.facebook.com/sharer/sharer.php?u=https://psephopaiktes.github.io/tabulasa/', target='_brank')
       | Facebook
 
-  h2 Support Tabulasa
+  h2 Support Author
   ul
+    li: a(href='https://github.com/sponsors/psephopaiktes', target='_brank') GitHub sponsors
     li: a(href='https://paypal.me/psephopaiktes', target='_brank') PayPal
-    li: a(href='http://amzn.asia/eoKfIyd', target='_brank') Amazon Wish List
+    li: a(href='https://ko-fi.com/psephopaiktes', target='_brank') Ko-fi
+    li: a(href='https://buymeacoffee.com/psephopaiktes', target='_brank') Buy me a coffee
 
 </template>
 

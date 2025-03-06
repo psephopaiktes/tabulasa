@@ -20,7 +20,7 @@ div
       li: a(:href='files.html' :download="fileName + '.html'")
         <img svg-inline src="@/assets/icon/file_html.svg" />.html
       li: button(@click='callBrowserPrint')
-        <img svg-inline src="@/assets/icon/file_pdf.svg" />.pdf (print)
+        <img svg-inline src="@/assets/icon/file_pdf.svg" />.pdf
 
 </template>
 
@@ -28,6 +28,7 @@ div
 import { Prop, Component, Vue } from "vue-property-decorator";
 import htmlTemplate from "@/assets/html_template";
 const marked = require("marked");
+const emoji = require("node-emoji");
 
 @Component
 export default class ModalPost extends Vue {
@@ -63,9 +64,7 @@ export default class ModalPost extends Vue {
 
     const htmlMemoData: string = htmlTemplate(
       this.fileName,
-      marked(this.$store.state.memoData, {
-        breaks: true
-      })
+      marked(emoji.emojify(this.$store.state.memoData), { breaks: true })
     );
 
     blobs.txt = new Blob([this.$store.state.memoData], {
@@ -141,11 +140,14 @@ section {
     }
     a,
     button {
-      display: block;
-      text-align: center;
+      display: flex;
+      gap: 8px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-decoration: none;
       width: 128px;
-      height: 128px;
+      aspect-ratio: 1;
       border: 2px solid transparent;
       border-radius: 12px;
       font-size: 18px;
@@ -165,7 +167,6 @@ section {
     }
     svg {
       width: 56px;
-      margin: 16px 34px 8px;
       display: block;
       fill: rgba(#{$COLOR_RGB_MAIN}, 0.5);
     }

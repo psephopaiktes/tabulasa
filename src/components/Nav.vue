@@ -148,6 +148,7 @@ nav {
       &.router-link-exact-active {
         background: rgba(#{$COLOR_RGB_THEME}, 0.2);
         color: $COLOR_THEME;
+        pointer-events: none;
         svg {
           fill: $COLOR_THEME !important;
         }

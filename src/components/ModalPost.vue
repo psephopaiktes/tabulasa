@@ -15,16 +15,16 @@ div
         | GitHub Gist
 
       li: a(
-        :href="'https://twitter.com/intent/tweet?text='+encodeURI($store.state.memoData)"
+        :href="'https://x.com/intent/post?text='+encodeURI($store.state.memoData)"
       )
         <img svg-inline src="@/assets/twitter.svg" />
-        | Twitter
+        | Post to X
 
       li: a(
         :href="'https://mail.google.com/mail/?view=cm&body='+encodeURI($store.state.memoData)"
       )
         <img svg-inline src="@/assets/gmail.svg" />
-        | Gmail
+        | Send Gmail
 
 </template>
 
@@ -72,8 +72,9 @@ section {
       margin-top: 16px;
     }
     li > a {
-      display: block;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-decoration: none;
       width: 320px;
       height: 64px;
@@ -95,9 +96,9 @@ section {
       }
     }
     svg {
-      width: 48px;
-      margin: 8px 12px 8px -16px;
-      vertical-align: middle;
+      width: 40px;
+      height: 40px;
+      margin: 0 12px 0 -16px;
     }
   }
 }

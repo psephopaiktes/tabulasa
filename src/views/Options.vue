@@ -3,7 +3,11 @@ main.c-page
 
     h1 Options
 
-    h2#theme Editor Theme
+
+
+    h2#editors Editor
+
+    h3 Theme
     ul
       li: label
         input(v-model="theme" type='radio' name='theme' value='system')
@@ -15,9 +19,15 @@ main.c-page
         input(v-model="theme" type='radio' name='theme' value='dark')
         | dark
 
-    h2#font Editor font
+    h3 font
     p Input your favorite font-family (as CSS).
     input.text(type="text" placeholder="Enter in CSS format." v-model='font')
+
+    h3 Print Width
+    p Set characters volume per line.
+    input.number(type="number" placeholder="Enter num" v-model='printWidth')
+
+
 
     h2#wallpaper Wallpaper
     p You can show Wallpaper when not the editor is focused.
@@ -92,6 +102,12 @@ export default class Customize extends Vue {
   set font(value) {
     this.$store.commit("setOptions", { key: "font", val: value });
   }
+  get printWidth(): number {
+    return this.$store.state.chromeSync.printWidth;
+  }
+  set printWidth(value) {
+    this.$store.commit("setOptions", { key: "printWidth", val: value });
+  }
   get backgroundType(): string {
     return this.$store.state.chromeSync.backgroundType;
   }
@@ -140,9 +156,11 @@ label {
 input[type="radio"] {
   margin-right: 0.4em;
 }
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   display: block;
-  width: 560px;
+  width: 100%;
+  max-width: 560px;
   padding: 8px 12px;
   font-size: 1em;
   border: 2px solid rgba(#{$COLOR_RGB_MAIN}, 0.4);
@@ -153,7 +171,8 @@ input[type="text"] {
 .inputUrl {
   margin: 4px 8px 0;
 }
-.text {
+.text,
+.number {
   margin-top: 12px;
 }
 details {

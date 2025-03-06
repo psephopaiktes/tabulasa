@@ -19,20 +19,20 @@ nav
       //- <img v-else-if="$store.state.mode == 'sbs'" svg-inline src="@/assets/icon/mode_preview.svg" />
       <img v-else-if="$store.state.mode == 'preview'" svg-inline src="@/assets/icon/mode_edit.svg" />
 
-      span(v-if="$store.state.mode == 'edit'") PREVIEW
-      //- span(v-else-if="$store.state.mode == 'sbs'") PREVIEW
-      span(v-else-if="$store.state.mode == 'preview'") EDIT
+      span(v-if="$store.state.mode == 'edit'") Preview
+      //- span(v-else-if="$store.state.mode == 'sbs'") Preview
+      span(v-else-if="$store.state.mode == 'preview'") Edit
 
       kbd ⌥1
 
     li: button(@click='showExportModal = true')
       <img svg-inline src="@/assets/icon/export.svg" />
-      | EXPORT
+      | Export
       kbd ⌥2
 
     li: button(@click='showPostModal = true')
       <img svg-inline src="@/assets/icon/post.svg" />
-      | POST
+      | Post
       kbd ⌥3
 
 </template>
@@ -103,12 +103,12 @@ nav {
   z-index: $Z_NAV - 1;
   ul {
     display: flex;
+    gap: 10px;
   }
   button {
     display: block;
     position: relative;
     height: 32px;
-    margin-left: 12px;
     border-radius: 12px;
     padding-right: 14px;
     padding-left: 30px;

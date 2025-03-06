@@ -22,9 +22,9 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class Wallpaper extends Vue {
   // data
-  public backgroundValue: string = "none";
-  public showExportModal: boolean = false;
-  public showPostModal: boolean = false;
+  public backgroundValue = "none";
+  public showExportModal = false;
+  public showPostModal = false;
   public nowHour: number = new Date().getHours();
   public nowMinute: number = new Date().getMinutes();
 

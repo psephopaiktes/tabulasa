@@ -124,8 +124,7 @@ output {
     opacity: .5;
   }
   code,kbd{
-    font-family: RictyDiminishedDiscord, "Ricty Diminished", Ricty, Menlo,
-      monospace;
+    font-family: SourceHanCode, "Source Code Pro", "Source Han Code JP", "Cica", "Menlo", "Consolas", "Monaco", "Courier New", monospace;
     background: rgba(#{$COLOR_RGB_MAIN}, 0.1);
     padding: .2em .4em;
     border-radius: 3px;

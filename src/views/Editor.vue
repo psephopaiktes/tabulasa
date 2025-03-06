@@ -7,13 +7,20 @@ main#editor(:class="[$store.state.mode, { show: loaded }]")
     | Tabulasa auto-saves your note.
 
   // Content
-  output(v-html='compiledMarkdown')
-  div(
-    :style="`font-family: ${$store.state.chromeSync.font}`"
+  output(
+    v-html='compiledMarkdown'
+    :style="`max-width: ${$store.state.chromeSync.printWidth}em;`"
+  )
+
+  .container(
+    :style="`font-family: ${$store.state.chromeSync.font}; max-width: ${$store.state.chromeSync.printWidth}em;`"
   )
     textarea#code(placeholder='Type here')
 
   ActionButtons(v-if='$store.state.focus')
+
+  p#counter(v-if='$store.state.focus && charCount > 0')
+    | {{ charCount }} char selected
 
   Wallpaper(v-if='!$store.state.focus')
 
@@ -23,7 +30,7 @@ main#editor(:class="[$store.state.mode, { show: loaded }]")
 import { Component, Vue } from "vue-property-decorator";
 import ActionButtons from "@/components/ActionButtons.vue";
 import Wallpaper from "@/components/Wallpaper.vue";
-import welcome from "@/assets/welcome.ts";
+import welcome from "@/assets/welcome";
 import vsCodeKeymap from "@/lib/keymap/vscode";
 const marked = require("marked");
 const emoji = require("node-emoji");
@@ -37,8 +44,6 @@ require("codemirror/addon/display/placeholder.js");
 require("codemirror/addon/scroll/simplescrollbars.js");
 require("codemirror/mode/gfm/gfm.js");
 require("codemirror/keymap/sublime");
-// import firebase from "firebase";
-// import doc = firebase.doc; みたいなのもいけるはず
 
 @Component({
   components: {
@@ -48,7 +53,8 @@ require("codemirror/keymap/sublime");
 })
 export default class Editor extends Vue {
   // data
-  public loaded: boolean = false;
+  public loaded = false;
+  public charCount = 0;
   // computed
   public get compiledMarkdown(): string {
     const text = emoji.emojify(this.$store.state.memoData);
@@ -121,6 +127,7 @@ export default class Editor extends Vue {
         element.classList.remove("scroll");
       }, 100);
     });
+
     // Feedback for `⌘S`
     const snackbar = document.getElementById("snackbar");
     element.addEventListener("keydown", e => {
@@ -138,6 +145,12 @@ export default class Editor extends Vue {
         }
       }
     });
+
+    // Counter
+    editor.on("cursorActivity", () => {
+      this.charCount = editor.getSelection().length;
+    });
+
     // Wallpaper読み込み完了処理
     window.addEventListener("load", () => {
       this.loaded = true;
@@ -154,11 +167,24 @@ export default class Editor extends Vue {
 @import "@/scss/object/previewHTML.scss";
 @import "@/scss/object/codeMirror.scss";
 
+#counter {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  padding: 8px;
+  border-radius: 8px;
+  z-index: $Z_NAV - 1;
+  background: $COLOR_BASE;
+  color: rgba(#{$COLOR_RGB_MAIN}, 0.7);
+}
+
 #editor {
   opacity: 0;
   transition: 0.1s ease-out;
   overflow: hidden;
-  min-height: 100vh;
+  height: 100vh;
+  line-height: 1;
+  padding: 0.5em;
   &.show {
     opacity: 1;
   }
@@ -201,7 +227,7 @@ export default class Editor extends Vue {
 }
 output {
   margin: 0 auto;
-  padding: 12vh 0;
+  padding: 96px 0;
   width: calc(100% - 96px);
   max-width: 720px;
   display: block;
@@ -211,16 +237,25 @@ output {
   display: none;
 }
 // BASICS
+.container {
+  width: calc(100% - 80px);
+  max-width: 50em;
+  margin: 0 auto;
+  font-size: 18px;
+  @media (width < 640px) {
+    font-size: 16px;
+  }
+  @media (width < 480px) {
+    font-size: 12px;
+  }
+}
 .CodeMirror {
-  font-size: 20px;
   color: rgba(#{$COLOR_RGB_MAIN}, 0.8);
   line-height: 1.5;
   text-decoration-skip-ink: none;
-  width: calc(100% - 96px);
-  max-width: 30em;
-  margin: 0 auto;
   opacity: 0;
   transition: 0.3s ease-out;
+  height: 100vh;
   &.show {
     opacity: 1;
   }
@@ -247,10 +282,11 @@ output {
       rgba(#{$COLOR_RGB_BASE}, 0)
     );
     z-index: 2;
+    pointer-events: none;
   }
 }
 .CodeMirror-lines {
-  padding: 12vh 0;
+  padding: 80px 0;
 }
 .CodeMirror pre.CodeMirror-line,
 .CodeMirror pre.CodeMirror-line-like {
@@ -325,7 +361,7 @@ output {
   font-weight: bold;
 }
 .cm-header-1 {
-  font-size: 3em;
+  font-size: 2.4em;
   color: $COLOR_MAIN;
 }
 .cm-header-2 {
@@ -378,13 +414,13 @@ output {
 }
 .cm-hr {
   position: relative;
+  display: block;
   &::after {
     content: "";
     position: absolute;
     height: 17px;
-    width: calc(100vw - 100px);
-    max-width: 29em;
-    border-bottom: 2px solid rgba(#{$COLOR_RGB_MAIN}, 0.1);
+    width: 100%;
+    border-bottom: 2px dashed rgba(#{$COLOR_RGB_MAIN}, 0.1);
     left: 0;
   }
 }

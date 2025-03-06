@@ -1,27 +1,27 @@
 @charset "urf-8";
 
 @font-face {
-  font-family:'RictyDiminishedDiscord';
+  font-family:'SourceHanCode';
   font-weight: normal; font-style: normal;
-  src: url('/font/RictyDiminishedDiscord-Regular.woff2') format('woff2');
+  src: url('/font/SourceHanCodeJP-Regular.woff2') format('woff2');
   font-display: fallback;
 }
 @font-face {
-  font-family:'RictyDiminishedDiscord';
-  font-weight: normal; font-style: oblique;
-  src: url('/font/RictyDiminishedDiscord-Oblique.woff2') format('woff2');
+  font-family:'SourceHanCode';
+  font-weight: normal; font-style: italic;
+  src: url('/font/SourceHanCodeJP-RegularIt.woff2') format('woff2');
   font-display: fallback;
 }
 @font-face {
-  font-family:'RictyDiminishedDiscord';
+  font-family:'SourceHanCode';
   font-weight: bold; font-style: normal;
-  src: url('/font/RictyDiminishedDiscord-Bold.woff2') format('woff2');
+  src: url('/font/SourceHanCodeJP-Bold.woff2') format('woff2');
   font-display: fallback;
 }
 @font-face {
-  font-family:'RictyDiminishedDiscord';
-  font-weight: bold; font-style: oblique;
-  src: url('/font/RictyDiminishedDiscord-BoldOblique.woff2') format('woff2');
+  font-family:'SourceHanCode';
+  font-weight: bold; font-style: italic;
+  src: url('/font/SourceHanCodeJP-BoldIt.woff2') format('woff2');
   font-display: fallback;
 }
 
@@ -160,4 +160,7 @@ a{
 }
 button{
   cursor: pointer;
+}
+svg {
+  outline: none;
 }

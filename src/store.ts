@@ -12,10 +12,11 @@ export default new Vuex.Store({
     chromeSync: {
       theme: "system",
       font:
-        'RictyDiminishedDiscord, "Ricty Diminished", Ricty, Menlo, monospace',
+        'SourceHanCode, "Source Code Pro", "Source Han Code JP", "Cica", "Menlo", "Consolas", "Monaco", "Courier New", monospace',
+      printWidth: 50,
       backgroundType: "none",
       backgroundColor: "#cccccc",
-      backgroundUrl: "",
+      backgroundUrl: "https://cataas.com/cat",
       clockType: "none",
       clockColor: "#ffffff",
       gitHubToken: ""
