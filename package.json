@@ -31,6 +31,8 @@
     "wxt": "^0.19.13"
   },
   "dependencies": {
+    "@codemirror/lang-markdown": "^6.3.2",
+    "codemirror": "^6.0.1",
     "svg-mask-icon": "^2.1.0"
   }
 }

@@ -1,5 +1,5 @@
 export const store = $state({
-  memo: "",
+  doc: "",
   options: {
     theme: "system",
   },
