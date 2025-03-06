@@ -6,6 +6,9 @@
     "type": "git",
     "url": "https://github.com/psephopaiktes/tabulasa"
   },
+  "engines": {
+    "node": "<18"
+  },
   "scripts": {
     "start": "vue-cli-service serve",
     "serve": "vue-cli-service serve",

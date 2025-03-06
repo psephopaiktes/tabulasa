@@ -26,9 +26,6 @@ main.c-page
     li: a(href='https://paypal.me/psephopaiktes', target='_brank') PayPal
     li: a(href='http://amzn.asia/eoKfIyd', target='_brank') Amazon Wish List
 
-  h2 Other
-  p This service use Google Analytics.
-
 </template>
 
 <script lang="ts">

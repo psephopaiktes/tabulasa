@@ -27,9 +27,6 @@ main.c-page
       li: label
         input(v-model="backgroundType" type='radio' name='backgroundType' value='none')
         | none
-      li: label
-        input(v-model="backgroundType" type='radio' name='backgroundType' value='cat')
-        | daily cat
       li
         label
           input(v-model="backgroundType" type='radio' name='backgroundType' value='color')

@@ -1,13 +1,6 @@
 module.exports = {
   publicPath: "./",
   productionSourceMap: false,
-  // css: {
-  //   loaderOptions: {
-  //     scss: {
-  //       data: '@import "@/style/common.scss";'
-  //     }
-  //   }
-  // },
   chainWebpack: config => {
     config.module
       .rule("vue")

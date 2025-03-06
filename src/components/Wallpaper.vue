@@ -37,11 +37,6 @@ export default class Wallpaper extends Vue {
   }
   public created() {
     switch (this.$store.state.chromeSync.backgroundType) {
-      case "cat":
-        this.backgroundValue =
-          "url(https://source.unsplash.com/daily?cat&orientation=landscape) center / cover";
-        break;
-
       case "color":
         this.backgroundValue = this.$store.state.chromeSync.backgroundColor;
         break;

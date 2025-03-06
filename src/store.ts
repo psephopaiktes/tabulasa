@@ -15,8 +15,7 @@ export default new Vuex.Store({
         'RictyDiminishedDiscord, "Ricty Diminished", Ricty, Menlo, monospace',
       backgroundType: "none",
       backgroundColor: "#cccccc",
-      backgroundUrl:
-        "https://source.unsplash.com/daily?cat&orientation=landscape",
+      backgroundUrl: "",
       clockType: "none",
       clockColor: "#ffffff",
       gitHubToken: ""

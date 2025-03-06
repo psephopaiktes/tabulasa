@@ -12,7 +12,7 @@
   "eslint.autoFixOnSave": true,
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "eslint.run": "onSave",
   "vetur.format.defaultFormatter.js": "none",
