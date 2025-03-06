@@ -13,7 +13,8 @@
     "start": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "zip": "npm run build && zip -r tabulasa.zip dist"
   },
   "dependencies": {
     "codemirror": "^5.49.0",

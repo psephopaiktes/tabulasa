@@ -37,6 +37,5 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "minimum_chrome_version": "22",
   "homepage_url": "https://psephopaiktes.github.io/tabulasa/"
 }
